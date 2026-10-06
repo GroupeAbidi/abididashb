@@ -1,0 +1,1871 @@
+{
+  "generatedAt": "2026-10-05T07:24:41.281Z",
+  "sources": [
+    {
+      "fileName": "AGRO.xls",
+      "company": "AGROSATI"
+    },
+    {
+      "fileName": "CONS.xls",
+      "company": "CONSERVERIE"
+    },
+    {
+      "fileName": "GROUPE MINOT.xls",
+      "company": "GROUPE"
+    },
+    {
+      "fileName": "MGK PVC.xls",
+      "company": "MGK"
+    },
+    {
+      "fileName": "MINOT.xls",
+      "company": "MINOTERIE"
+    },
+    {
+      "fileName": "TRANSPORT.xls",
+      "company": "TRANSPORT"
+    }
+  ],
+  "employees": [
+    {
+      "employeeId": "A0031",
+      "employeeName": "FADEL WARDA",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIERE",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0038",
+      "employeeName": "BEDJIRI AMMAR",
+      "baseSalary": 39200,
+      "company": "AGROSATI",
+      "role": "OUVRIER",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0052",
+      "employeeName": "BOUGHOULA SORYA",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIERE",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0221",
+      "employeeName": "GRINI OUAHIDA",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIERE",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0226",
+      "employeeName": "ZOUARAA ISSAM",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIER",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0233",
+      "employeeName": "BENCHABANE RADHIA",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "COUTURIERE",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0239",
+      "employeeName": "BENKIRAT ABDELDJALIL",
+      "baseSalary": 30900,
+      "company": "AGROSATI",
+      "role": "OUVRIER",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0375",
+      "employeeName": "BOUTALEB AMINA",
+      "baseSalary": 37800,
+      "company": "AGROSATI",
+      "role": "CADRE COMMERCIALE",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0382",
+      "employeeName": "BENARBIA MALIKA",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIERE",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0519",
+      "employeeName": "MEDJELDI ABDERREZZAQ",
+      "baseSalary": 44700,
+      "company": "AGROSATI",
+      "role": "SOUDEUR",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0527",
+      "employeeName": "BOUCENA MOUHSSIN",
+      "baseSalary": 104000,
+      "company": "AGROSATI",
+      "role": "DIRECTEUR COMMERCIAL",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0536",
+      "employeeName": "FNIDES SELMA",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIERE",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0549",
+      "employeeName": "HADJAR AYMEN",
+      "baseSalary": 24800,
+      "company": "AGROSATI",
+      "role": "OUVRIER",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0573",
+      "employeeName": "ZOUIDI AZZIZA",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIERE",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0577",
+      "employeeName": "KHANNIOUI NAZIHA",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIERE",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0580",
+      "employeeName": "BOUZIT NADIA",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "CHEF DE CUISINE",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0581",
+      "employeeName": "BOUZIT AICHA",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIERE",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0584",
+      "employeeName": "AMMARI ZAHIA",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIERE",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0589",
+      "employeeName": "ZEMOURI IBRAHIMELKHALIL",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIER",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0631",
+      "employeeName": "AMIROUCHE IBTISSAM",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIERE",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0637",
+      "employeeName": "SLIMANI AT TAHIR",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "CHEF DE CUISINE",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0677",
+      "employeeName": "FADEL MERYEM",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIERE",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0686",
+      "employeeName": "KHALLA SAMIA",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIERE",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0687",
+      "employeeName": "HEZAME IMAD",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIER",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0688",
+      "employeeName": "MOHAMMEDI SALIHA",
+      "baseSalary": 41800,
+      "company": "AGROSATI",
+      "role": "CHEF EQUIPE",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0689",
+      "employeeName": "FAIZI AMIRA",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIERE",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0691",
+      "employeeName": "LOUNIS SALIM",
+      "baseSalary": 39500,
+      "company": "AGROSATI",
+      "role": "ELECTRO MECANICIEN",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0695",
+      "employeeName": "BEKHAKHECHA HAFIDA",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIERE",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0699",
+      "employeeName": "BENAISSA SALEH",
+      "baseSalary": 25400,
+      "company": "AGROSATI",
+      "role": "OUVRIER",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0700",
+      "employeeName": "MOHAMEDI FATEH",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIER",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0705",
+      "employeeName": "AMOURA YOUSSOUF",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIER",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0731",
+      "employeeName": "ALIOUI SOFIANE",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIER",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0738",
+      "employeeName": "ZITOUNI YOUSOUF",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "CHEF DE CUISINE",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0746",
+      "employeeName": "KEBBASSI ABDELHAK",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIER",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0749",
+      "employeeName": "GUETATLIA MERYEM",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIERE",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0750",
+      "employeeName": "AIDAOUI AHMED",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIER",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0754",
+      "employeeName": "BOUGHAZI KAMILA",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIERE",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0757",
+      "employeeName": "DJEBABLA BOUTHEYNA",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIERE",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0761",
+      "employeeName": "ZOUAIMIA ALA EDDINE",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIER",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0762",
+      "employeeName": "KEDDACHE SALIMA",
+      "baseSalary": 36400,
+      "company": "AGROSATI",
+      "role": "OUVRIERE",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0763",
+      "employeeName": "ROUABHIA NABILA",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIERE",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0765",
+      "employeeName": "ALIA BACHIR",
+      "baseSalary": 37500,
+      "company": "AGROSATI",
+      "role": "MAGASINIER",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0771",
+      "employeeName": "MIHOUB INES",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIERE",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0776",
+      "employeeName": "AYADI AHMED MERWAN",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIER",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0777",
+      "employeeName": "BEN MAHIDI KAMAL",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIER",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0778",
+      "employeeName": "MECHAALI CHOAYB",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "CADRE ELECTRO MECANICIEN",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0779",
+      "employeeName": "ZOUAIMIA SOULAF",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIERE",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0781",
+      "employeeName": "AMIRA SOUAD",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIERE",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0782",
+      "employeeName": "GHEMOUCHI SABAH",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIERE",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0783",
+      "employeeName": "BOUDJEHEM ANWAR",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIER",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0785",
+      "employeeName": "BOUAFIA NABIL",
+      "baseSalary": 40600,
+      "company": "AGROSATI",
+      "role": "CAISSIER",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0788",
+      "employeeName": "HADJAR ABDERREZZAQ",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIER",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0789",
+      "employeeName": "BOUAFIA ABDERRAZEK",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "AGENT DE SECURITE",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0791",
+      "employeeName": "BRAHIMI MERYEM",
+      "baseSalary": 40600,
+      "company": "AGROSATI",
+      "role": "AGENT GENERAL D'ASSURANCE",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0792",
+      "employeeName": "BENSOUILAH RAHMA",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIERE",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0793",
+      "employeeName": "GHERARI SAMIA",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIERE",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0795",
+      "employeeName": "KAHLERAS SEYF-EL-ISLAM",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "CARISTE",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "A0798",
+      "employeeName": "BENSALEM OUASSILA",
+      "baseSalary": 24000,
+      "company": "AGROSATI",
+      "role": "OUVRIERE",
+      "sourceFile": "AGRO.xls"
+    },
+    {
+      "employeeId": "C0089",
+      "employeeName": "BRAHMIA SAMI",
+      "baseSalary": 36500,
+      "company": "CONSERVERIE",
+      "role": "OUVRIER",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0142",
+      "employeeName": "AOUAMRI HICHAM",
+      "baseSalary": 24000,
+      "company": "CONSERVERIE",
+      "role": "OUVRIER",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0174",
+      "employeeName": "NOUAR ALI",
+      "baseSalary": 24000,
+      "company": "CONSERVERIE",
+      "role": "OUVRIER",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0179",
+      "employeeName": "BOUCHELAGHEM AHCENE",
+      "baseSalary": 24000,
+      "company": "CONSERVERIE",
+      "role": "OUVRIER",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0193",
+      "employeeName": "SEKFALI MOHAMMED",
+      "baseSalary": 103200,
+      "company": "CONSERVERIE",
+      "role": "CADRE COMMERCIAL",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0214",
+      "employeeName": "GHERIBI FOUZI",
+      "baseSalary": 37500,
+      "company": "CONSERVERIE",
+      "role": "OUVRIER",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0232",
+      "employeeName": "MECHAALI ABDENNOUR",
+      "baseSalary": 31140,
+      "company": "CONSERVERIE",
+      "role": "LABORANTIN",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0242",
+      "employeeName": "MERADI SAFA",
+      "baseSalary": 50800,
+      "company": "CONSERVERIE",
+      "role": "CHEF DE PRODUCTION",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0251",
+      "employeeName": "BEDJAOUI ABDELLATIF",
+      "baseSalary": 37200,
+      "company": "CONSERVERIE",
+      "role": "AGENT DU BUREAU",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0268",
+      "employeeName": "BENAKLA FAYZA",
+      "baseSalary": 24000,
+      "company": "CONSERVERIE",
+      "role": "OUVRIERE",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0298",
+      "employeeName": "DOUKHANE TAYEB",
+      "baseSalary": 25000,
+      "company": "CONSERVERIE",
+      "role": "OUVRIER",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0309",
+      "employeeName": "KHALLA NOR EL HOUDA",
+      "baseSalary": 27600,
+      "company": "CONSERVERIE",
+      "role": "LABORANTINE",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0321",
+      "employeeName": "GUENFOUD SOUAD",
+      "baseSalary": 24000,
+      "company": "CONSERVERIE",
+      "role": "OUVRIERE",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0354",
+      "employeeName": "BOUCHERAK NIHED",
+      "baseSalary": 24000,
+      "company": "CONSERVERIE",
+      "role": "OUVRIERE",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0383",
+      "employeeName": "ABDENNEBI DJALAL",
+      "baseSalary": 42300,
+      "company": "CONSERVERIE",
+      "role": "SOUDEUR",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0404",
+      "employeeName": "SABER KOUKIA",
+      "baseSalary": 24000,
+      "company": "CONSERVERIE",
+      "role": "OUVRIERE",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0410",
+      "employeeName": "DJEBBAR SOUFYANE",
+      "baseSalary": 32000,
+      "company": "CONSERVERIE",
+      "role": "OUVRIER",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0421",
+      "employeeName": "BENRAZEK NOUREDDINE",
+      "baseSalary": 103000,
+      "company": "CONSERVERIE",
+      "role": "DIRECTEUR COMMERCIAL",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0422",
+      "employeeName": "TOULGUI OUASSILA",
+      "baseSalary": 24000,
+      "company": "CONSERVERIE",
+      "role": "OUVRIERE",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0423",
+      "employeeName": "BENTEBOULA KAMEL",
+      "baseSalary": 36700,
+      "company": "CONSERVERIE",
+      "role": "OUVRIER",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0424",
+      "employeeName": "DEGHAMNA ALI",
+      "baseSalary": 45050,
+      "company": "CONSERVERIE",
+      "role": "CARISTE",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0455",
+      "employeeName": "BOUCHAHDANE MOHAMMED CHERIF",
+      "baseSalary": 26000,
+      "company": "CONSERVERIE",
+      "role": "OUVRIER",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0464",
+      "employeeName": "BERKANI YOUSSOUF",
+      "baseSalary": 25000,
+      "company": "CONSERVERIE",
+      "role": "OUVRIER",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0489",
+      "employeeName": "MAIACHIA AHMED",
+      "baseSalary": 24000,
+      "company": "CONSERVERIE",
+      "role": "OUVRIER",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0497",
+      "employeeName": "CHEKATI CHAHRAZAD",
+      "baseSalary": 27000,
+      "company": "CONSERVERIE",
+      "role": "CADRE FINANCIER",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0498",
+      "employeeName": "ALLOUI HICHAM",
+      "baseSalary": 32850,
+      "company": "CONSERVERIE",
+      "role": "OUVRIER",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0500",
+      "employeeName": "DJOUAMBI ZAKARYA",
+      "baseSalary": 60100,
+      "company": "CONSERVERIE",
+      "role": "DIRECTEUR DES RELATIONS EXTERIERE",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0507",
+      "employeeName": "FETATNIA ADEL",
+      "baseSalary": 24000,
+      "company": "CONSERVERIE",
+      "role": "OUVRIER",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0516",
+      "employeeName": "TEBAIBIA MAZOUZ",
+      "baseSalary": 24000,
+      "company": "CONSERVERIE",
+      "role": "OUVRIER",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0520",
+      "employeeName": "BENAMARA NOURA",
+      "baseSalary": 24000,
+      "company": "CONSERVERIE",
+      "role": "OUVRIERE",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0521",
+      "employeeName": "LAHEG ABDELOUAHEB",
+      "baseSalary": 24000,
+      "company": "CONSERVERIE",
+      "role": "OUVRIER",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0525",
+      "employeeName": "SEKFALI CHARIF",
+      "baseSalary": 39900,
+      "company": "CONSERVERIE",
+      "role": "GESTIONNAIRE DE STOCK",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0531",
+      "employeeName": "HAMLAOUI MEHDI",
+      "baseSalary": 24000,
+      "company": "CONSERVERIE",
+      "role": "OUVRIER",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0551",
+      "employeeName": "SAFI AHMED",
+      "baseSalary": 81900,
+      "company": "CONSERVERIE",
+      "role": "CAISSIER PRINCIPAL",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0552",
+      "employeeName": "BEYAZA CHAKIR",
+      "baseSalary": 24000,
+      "company": "CONSERVERIE",
+      "role": "VENDEUR",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0553",
+      "employeeName": "TEBAIBIA KHEMISSI",
+      "baseSalary": 26300,
+      "company": "CONSERVERIE",
+      "role": "OUVRIER",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0558",
+      "employeeName": "ZERDOUDI MABROUK",
+      "baseSalary": 24100,
+      "company": "CONSERVERIE",
+      "role": "OUVRIER",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0563",
+      "employeeName": "OBEIZI DJAMILA",
+      "baseSalary": 24000,
+      "company": "CONSERVERIE",
+      "role": "OUVRIERE",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0564",
+      "employeeName": "BOUZIANE ALI",
+      "baseSalary": 24000,
+      "company": "CONSERVERIE",
+      "role": "OUVRIER",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0571",
+      "employeeName": "DEBBICHE NASREDDINE",
+      "baseSalary": 25900,
+      "company": "CONSERVERIE",
+      "role": "OUVRIER",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0577",
+      "employeeName": "CHIHAOUI ANIS",
+      "baseSalary": 25900,
+      "company": "CONSERVERIE",
+      "role": "OUVRIER",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0581",
+      "employeeName": "DJELAILIA SAMIRA",
+      "baseSalary": 40600,
+      "company": "CONSERVERIE",
+      "role": "COMPTABLE",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0586",
+      "employeeName": "ABBAS NASSREDDINE",
+      "baseSalary": 40600,
+      "company": "CONSERVERIE",
+      "role": "AGENT COMMERCIAL",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0590",
+      "employeeName": "MEDJELDI SALIM",
+      "baseSalary": 24000,
+      "company": "CONSERVERIE",
+      "role": "OUVRIER",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0595",
+      "employeeName": "KHERAKHRIA BRAHIM",
+      "baseSalary": 41000,
+      "company": "CONSERVERIE",
+      "role": "DELEGUE COMMERCIAL",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0596",
+      "employeeName": "DOUAFER HAMDENE",
+      "baseSalary": 27000,
+      "company": "CONSERVERIE",
+      "role": "OUVRIER",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0601",
+      "employeeName": "BOUDERBALA ADEL",
+      "baseSalary": 24000,
+      "company": "CONSERVERIE",
+      "role": "OUVRIER",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0602",
+      "employeeName": "BENHACENE WALID",
+      "baseSalary": 24000,
+      "company": "CONSERVERIE",
+      "role": "OUVRIER",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0611",
+      "employeeName": "HAMDI MOHAMED SALAH",
+      "baseSalary": 24000,
+      "company": "CONSERVERIE",
+      "role": "OUVRIER",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0612",
+      "employeeName": "MOUHOUB MOUATAZ BILLAH",
+      "baseSalary": 24000,
+      "company": "CONSERVERIE",
+      "role": "OUVRIER",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0614",
+      "employeeName": "BOUAZIZ MOHAMED-LARBI",
+      "baseSalary": 24000,
+      "company": "CONSERVERIE",
+      "role": "OUVRIER",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0616",
+      "employeeName": "BERKANI BILAL",
+      "baseSalary": 26100,
+      "company": "CONSERVERIE",
+      "role": "AGENT ADMINISTRATIF",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0620",
+      "employeeName": "SEGNI KAMEL",
+      "baseSalary": 24000,
+      "company": "CONSERVERIE",
+      "role": "OUVRIER",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0623",
+      "employeeName": "DAFRI NASREDDINE",
+      "baseSalary": 24000,
+      "company": "CONSERVERIE",
+      "role": "AGENT HSE",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0625",
+      "employeeName": "CHEKROUBA AHMED AMIN",
+      "baseSalary": 66000,
+      "company": "CONSERVERIE",
+      "role": "RESPONSABLE MAINTENANCE",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0627",
+      "employeeName": "HENNAD HALLA NESRINE",
+      "baseSalary": 36900,
+      "company": "CONSERVERIE",
+      "role": "CADRE COMMERCIAL",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0629",
+      "employeeName": "BEDAD ABDESSALAM",
+      "baseSalary": 80000,
+      "company": "CONSERVERIE",
+      "role": "DIRECTEUR FINANCE ET COMPTABILITE",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0630",
+      "employeeName": "HOUAOUSSA KHALID",
+      "baseSalary": 24000,
+      "company": "CONSERVERIE",
+      "role": "OUVRIER",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0632",
+      "employeeName": "ALLOUI MOHAMED",
+      "baseSalary": 24000,
+      "company": "CONSERVERIE",
+      "role": "CHAUFFEUR V.L",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0633",
+      "employeeName": "ALLOUI HOUSSAM",
+      "baseSalary": 24000,
+      "company": "CONSERVERIE",
+      "role": "OUVRIER",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0634",
+      "employeeName": "DORBANI DERRADJI",
+      "baseSalary": 24000,
+      "company": "CONSERVERIE",
+      "role": "OUVRIER",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0635",
+      "employeeName": "FETATNIA LOUAI",
+      "baseSalary": 24000,
+      "company": "CONSERVERIE",
+      "role": "OUVRIER",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "C0636",
+      "employeeName": "BEDAHI MOHAMED-HOCINE",
+      "baseSalary": 24000,
+      "company": "CONSERVERIE",
+      "role": "OUVRIER",
+      "sourceFile": "CONS.xls"
+    },
+    {
+      "employeeId": "G0016",
+      "employeeName": "CHEKAROUA MOHAMED",
+      "baseSalary": 46288.07,
+      "company": "GROUPE",
+      "role": "CHEF D'equipe",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0019",
+      "employeeName": "AOUAOUDA LAYACHI",
+      "baseSalary": 27000,
+      "company": "GROUPE",
+      "role": "CHEF DE CAR",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0020",
+      "employeeName": "AIDOUD ABDELKRIM",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "MANUTENTIONNAIRE",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0057",
+      "employeeName": "KHALLA WAFA",
+      "baseSalary": 44250,
+      "company": "GROUPE",
+      "role": "COMPTABLE",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0087",
+      "employeeName": "RAMDANI FOUAD",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "OUVRIER",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0088",
+      "employeeName": "BOUACHA SALIH",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "Maçon",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0104",
+      "employeeName": "HANNACHI HAKIM",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "GARDIEN",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0129",
+      "employeeName": "MAHBOUBI MOUSSA",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "OUVRIER",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0143",
+      "employeeName": "LABIED ABDELKARIM",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "OUVRIER",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0144",
+      "employeeName": "GHALLAB FATIMA",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "CHEF D'equipe",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0150",
+      "employeeName": "BERNAOUI MARWA",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "OUVRIERE",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0156",
+      "employeeName": "MAHNOUF MEHDI",
+      "baseSalary": 28300,
+      "company": "GROUPE",
+      "role": "OUVRIER",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0168",
+      "employeeName": "BEKHAKHECHA KHEIRA",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "OUVRIERE",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0188",
+      "employeeName": "AIDAOUI ADIL",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "OUVRIER",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0193",
+      "employeeName": "SOLTANE AMAR",
+      "baseSalary": 25200,
+      "company": "GROUPE",
+      "role": "OUVRIER",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0194",
+      "employeeName": "GUERFI CHARIF",
+      "baseSalary": 32840,
+      "company": "GROUPE",
+      "role": "OUVRIER",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0198",
+      "employeeName": "BOUCETHA YOUSRA",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "OUVRIERE",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0221",
+      "employeeName": "KADDECHE ABDALLAH",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "GARDIEN",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0225",
+      "employeeName": "BOURSACE NOUREDDINE",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "OUVRIER",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0234",
+      "employeeName": "HERROUD LYAMINE",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "Ouvrier",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0239",
+      "employeeName": "BOUAKAZ FARES",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "OUVRIER",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0242",
+      "employeeName": "MOUAMNIA ABDELKRIM",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "OUVRIER",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0248",
+      "employeeName": "BADI LARBI",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "OUVRIER",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0253",
+      "employeeName": "GHENNAI SEYFEDDINE",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "OUVRIER",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0256",
+      "employeeName": "LABADNA BADREDDINE",
+      "baseSalary": 54300,
+      "company": "GROUPE",
+      "role": "SOUDEUR",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0258",
+      "employeeName": "BARS MOHCENE",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "OUVRIER",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0263",
+      "employeeName": "MERABET TARIQ",
+      "baseSalary": 40600,
+      "company": "GROUPE",
+      "role": "CADRE COMMERCIAL",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0265",
+      "employeeName": "SELMI SAID",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "OUVRIER",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0266",
+      "employeeName": "KHALLA ADIL",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "OUVRIER",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0267",
+      "employeeName": "BENCHEIKH WAHIBA",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "AGENT DE BUREAU",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0270",
+      "employeeName": "KHACHEBATT LOTFI",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "OUVRIER",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0271",
+      "employeeName": "BOUCHAHED FOUAD",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "OUVRIER",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0273",
+      "employeeName": "MENIDJEL KHALID",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "GARDIEN",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0274",
+      "employeeName": "GUENFOUD MOHAMMED EL HADI",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "OUVRIER",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0276",
+      "employeeName": "SELMIOUI BAHA EDDINE",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "OUVRIER",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0279",
+      "employeeName": "HACHOUF SALAH",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "OUVRIER",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0281",
+      "employeeName": "BELHACENE RAMZI",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "OUVRIER",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0282",
+      "employeeName": "BOUNAIA HEYTHEM",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "OUVRIER",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0283",
+      "employeeName": "FERRAG LIDIA SOFIA",
+      "baseSalary": 33750,
+      "company": "GROUPE",
+      "role": "CADRE EN COMPTABILITE ET FINANCE",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0284",
+      "employeeName": "BOUDRA SELSABIL",
+      "baseSalary": 33750,
+      "company": "GROUPE",
+      "role": "CADRE EN COMPTABILITE ET FINANCE",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0285",
+      "employeeName": "CHIHAOUI NEDJMEDDDINE",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "OUVRIER",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0287",
+      "employeeName": "LABIOD AYMEN",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "AGENT POLIVALENT",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0290",
+      "employeeName": "GUEROUI RADOUANE",
+      "baseSalary": 32100,
+      "company": "GROUPE",
+      "role": "CAISSIER",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0292",
+      "employeeName": "BOURMOUME MOHAMED",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "OUVRIER",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0295",
+      "employeeName": "BOUALEG BACHIR",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "OUVRIER",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0296",
+      "employeeName": "MEKHALFA YASSINE",
+      "baseSalary": 46000,
+      "company": "GROUPE",
+      "role": "DIRECTEUR D'ENTREPRISE",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0297",
+      "employeeName": "BOUSSAADA ABDELMALEK",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "OUVRIER",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0298",
+      "employeeName": "BENALIA TARIQ",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "OUVRIER",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "G0299",
+      "employeeName": "BENALIA MOHAMED ANIS",
+      "baseSalary": 24000,
+      "company": "GROUPE",
+      "role": "OUVRIER",
+      "sourceFile": "GROUPE MINOT.xls"
+    },
+    {
+      "employeeId": "K0002",
+      "employeeName": "FAREH HYCHEM",
+      "baseSalary": 35000,
+      "company": "MGK",
+      "role": "MENUISERIE",
+      "sourceFile": "MGK PVC.xls"
+    },
+    {
+      "employeeId": "K0009",
+      "employeeName": "BENFETTOUME KARIM",
+      "baseSalary": 35000,
+      "company": "MGK",
+      "role": "MENUISERIE",
+      "sourceFile": "MGK PVC.xls"
+    },
+    {
+      "employeeId": "K0012",
+      "employeeName": "MENTSEUR AZIZ",
+      "baseSalary": 27000,
+      "company": "MGK",
+      "role": "MENUISERIE",
+      "sourceFile": "MGK PVC.xls"
+    },
+    {
+      "employeeId": "K0014",
+      "employeeName": "KHALLA SADDEK",
+      "baseSalary": 43350,
+      "company": "MGK",
+      "role": "MENUISERIE",
+      "sourceFile": "MGK PVC.xls"
+    },
+    {
+      "employeeId": "M0009",
+      "employeeName": "BEKHAKHECHA ZAKIA",
+      "baseSalary": 25000,
+      "company": "MINOTERIE",
+      "role": "FEMME DE MENAGE",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0095",
+      "employeeName": "FEZZAA HAKIM",
+      "baseSalary": 24000,
+      "company": "MINOTERIE",
+      "role": "OUVRIER",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0123",
+      "employeeName": "HAFDI ZINELAABIDINE",
+      "baseSalary": 24000,
+      "company": "MINOTERIE",
+      "role": "GERDIEN",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0126",
+      "employeeName": "BENARBIA ZAZIA",
+      "baseSalary": 24000,
+      "company": "MINOTERIE",
+      "role": "OUVRIERE",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0141",
+      "employeeName": "GUEFFAL LAZHAR",
+      "baseSalary": 24000,
+      "company": "MINOTERIE",
+      "role": "ELECTRECIEN",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0153",
+      "employeeName": "HAMMI MOURAD",
+      "baseSalary": 24000,
+      "company": "MINOTERIE",
+      "role": "ELECTRICIEN AUTO",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0154",
+      "employeeName": "HALLACI LYNDA",
+      "baseSalary": 40600,
+      "company": "MINOTERIE",
+      "role": "COMPTABLE",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0172",
+      "employeeName": "BENNOUIKES HYCHEM",
+      "baseSalary": 24500,
+      "company": "MINOTERIE",
+      "role": "OUVRIER",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0182",
+      "employeeName": "MEHALAINE ABDERRAHMANE",
+      "baseSalary": 24000,
+      "company": "MINOTERIE",
+      "role": "GARDIEN",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0196",
+      "employeeName": "DELLOUL ABDELKADER",
+      "baseSalary": 28500,
+      "company": "MINOTERIE",
+      "role": "OUVRIER",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0197",
+      "employeeName": "GHARIB KARIM",
+      "baseSalary": 24000,
+      "company": "MINOTERIE",
+      "role": "OUVRIER",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0198",
+      "employeeName": "BENHAROUN ABDELWAHAB",
+      "baseSalary": 30000,
+      "company": "MINOTERIE",
+      "role": "OUVRIER",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0205",
+      "employeeName": "ATHAMNIA ABDELKADIR",
+      "baseSalary": 24000,
+      "company": "MINOTERIE",
+      "role": "OUVRIER",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0216",
+      "employeeName": "AISSOUGUI OMAR",
+      "baseSalary": 24000,
+      "company": "MINOTERIE",
+      "role": "OUVRIER",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0228",
+      "employeeName": "CHERAITI MOHAMMED ALI",
+      "baseSalary": 25800,
+      "company": "MINOTERIE",
+      "role": "OUVRIER",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0232",
+      "employeeName": "ABDAOUI MOHAMED",
+      "baseSalary": 24000,
+      "company": "MINOTERIE",
+      "role": "OUVRIER",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0235",
+      "employeeName": "HACHOUF MOUSSA",
+      "baseSalary": 46700,
+      "company": "MINOTERIE",
+      "role": "CHEF D'EQUIPE",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0244",
+      "employeeName": "SELAIMIA MERWAN",
+      "baseSalary": 26000,
+      "company": "MINOTERIE",
+      "role": "OUVRIER",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0247",
+      "employeeName": "BOUGUERRA MOURAD",
+      "baseSalary": 24000,
+      "company": "MINOTERIE",
+      "role": "OUVRIER",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0250",
+      "employeeName": "DOUAOURIA SALHEDDINE",
+      "baseSalary": 24000,
+      "company": "MINOTERIE",
+      "role": "OUVRIER",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0252",
+      "employeeName": "AZZAG FARID",
+      "baseSalary": 24000,
+      "company": "MINOTERIE",
+      "role": "OUVRIER",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0254",
+      "employeeName": "KAFALI ZOUBIR",
+      "baseSalary": 26300,
+      "company": "MINOTERIE",
+      "role": "CHEF DE CAR",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0255",
+      "employeeName": "CHOUARBIA RIAD",
+      "baseSalary": 24000,
+      "company": "MINOTERIE",
+      "role": "OUVRIER",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0257",
+      "employeeName": "RIHANE HEMZA",
+      "baseSalary": 40600,
+      "company": "MINOTERIE",
+      "role": "CADRE ADMINISTRATIF",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0258",
+      "employeeName": "BEKHAKHECHA SARRA",
+      "baseSalary": 24000,
+      "company": "MINOTERIE",
+      "role": "AGENT COMMERCIAL",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0259",
+      "employeeName": "ZIAYA ABDELDJALIL",
+      "baseSalary": 24000,
+      "company": "MINOTERIE",
+      "role": "OUVRIER",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0263",
+      "employeeName": "AHMED HERGA AMMAR",
+      "baseSalary": 24000,
+      "company": "MINOTERIE",
+      "role": "OUVRIER",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0264",
+      "employeeName": "BESSIOUD ABDALLAH",
+      "baseSalary": 24000,
+      "company": "MINOTERIE",
+      "role": "OUVRIER",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0265",
+      "employeeName": "BENSOUILEH IMAD",
+      "baseSalary": 24000,
+      "company": "MINOTERIE",
+      "role": "OUVRIER",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0266",
+      "employeeName": "NECIBI OUSSAMA",
+      "baseSalary": 24000,
+      "company": "MINOTERIE",
+      "role": "Agent D'assurance",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0269",
+      "employeeName": "CHOUANA MOHAMED",
+      "baseSalary": 24000,
+      "company": "MINOTERIE",
+      "role": "OUVRIER",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0271",
+      "employeeName": "BOUCENA AHMED",
+      "baseSalary": 33750,
+      "company": "MINOTERIE",
+      "role": "CADRE D'ETUDE",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0272",
+      "employeeName": "LAYADA FAYSSAL",
+      "baseSalary": 24000,
+      "company": "MINOTERIE",
+      "role": "OUVRIER",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0273",
+      "employeeName": "HACHOUF OMRANE",
+      "baseSalary": 46000,
+      "company": "MINOTERIE",
+      "role": "DIRECTEUR D'ENTREPRISE",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0274",
+      "employeeName": "BAZINE SAMER",
+      "baseSalary": 33750,
+      "company": "MINOTERIE",
+      "role": "CADRE EN COMPTABILITE ET FINANCE",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0275",
+      "employeeName": "BARS FERIEL",
+      "baseSalary": 32200,
+      "company": "MINOTERIE",
+      "role": "CADRE FINNANCIER",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0276",
+      "employeeName": "BEDAIDIA TAREK",
+      "baseSalary": 24500,
+      "company": "MINOTERIE",
+      "role": "AIDE COMPTABLE",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "M0277",
+      "employeeName": "RAMDANI AIMENE",
+      "baseSalary": 20000,
+      "company": "MINOTERIE",
+      "role": "OUVRIER",
+      "sourceFile": "MINOT.xls"
+    },
+    {
+      "employeeId": "T0029",
+      "employeeName": "ZAALANI MOUSSA",
+      "baseSalary": 24500,
+      "company": "TRANSPORT",
+      "role": "CHAUFFEUR P.L",
+      "sourceFile": "TRANSPORT.xls"
+    },
+    {
+      "employeeId": "T0041",
+      "employeeName": "HARZALLAH BRAHIM",
+      "baseSalary": 27800,
+      "company": "TRANSPORT",
+      "role": "CHAUFFEUR",
+      "sourceFile": "TRANSPORT.xls"
+    },
+    {
+      "employeeId": "T0048",
+      "employeeName": "SAADANE MOURAD",
+      "baseSalary": 24000,
+      "company": "TRANSPORT",
+      "role": "CHAUFFEUR V.L",
+      "sourceFile": "TRANSPORT.xls"
+    },
+    {
+      "employeeId": "T0064",
+      "employeeName": "KADRI SMAIN",
+      "baseSalary": 44000,
+      "company": "TRANSPORT",
+      "role": "MECANICIEN",
+      "sourceFile": "TRANSPORT.xls"
+    },
+    {
+      "employeeId": "T0068",
+      "employeeName": "CHIKHAOUI NOUREDDINE",
+      "baseSalary": 24800,
+      "company": "TRANSPORT",
+      "role": "CHAUFFEUR P.L",
+      "sourceFile": "TRANSPORT.xls"
+    },
+    {
+      "employeeId": "T0075",
+      "employeeName": "KHEBIZI ABDERRAZAK",
+      "baseSalary": 24000,
+      "company": "TRANSPORT",
+      "role": "CHAUFFEUR",
+      "sourceFile": "TRANSPORT.xls"
+    },
+    {
+      "employeeId": "T0082",
+      "employeeName": "RAMDANI BOUDJEMAA",
+      "baseSalary": 32600,
+      "company": "TRANSPORT",
+      "role": "CHAUFFEUR",
+      "sourceFile": "TRANSPORT.xls"
+    },
+    {
+      "employeeId": "T0093",
+      "employeeName": "CHIHAOUI EMBARK",
+      "baseSalary": 37500,
+      "company": "TRANSPORT",
+      "role": "CHAUFFAUR P.L",
+      "sourceFile": "TRANSPORT.xls"
+    },
+    {
+      "employeeId": "T0098",
+      "employeeName": "BOUREGBA SALAH",
+      "baseSalary": 33400,
+      "company": "TRANSPORT",
+      "role": "CHAUFFEUR P.L",
+      "sourceFile": "TRANSPORT.xls"
+    },
+    {
+      "employeeId": "T0099",
+      "employeeName": "AID AMER",
+      "baseSalary": 60000,
+      "company": "TRANSPORT",
+      "role": "CHAUFFEUR S.R\r\n\r\nCHAUFFEUR S.R",
+      "sourceFile": "TRANSPORT.xls"
+    },
+    {
+      "employeeId": "T0103",
+      "employeeName": "HAMLAOUI AHMED",
+      "baseSalary": 40600,
+      "company": "TRANSPORT",
+      "role": "CHAUFFAUR S.R",
+      "sourceFile": "TRANSPORT.xls"
+    },
+    {
+      "employeeId": "T0105",
+      "employeeName": "CHENATLIA ABDELOUAHEB",
+      "baseSalary": 26500,
+      "company": "TRANSPORT",
+      "role": "CHAUFFAUR P.L",
+      "sourceFile": "TRANSPORT.xls"
+    },
+    {
+      "employeeId": "T0109",
+      "employeeName": "BOURECHROUCHE MOHAMED TAHAR",
+      "baseSalary": 33800,
+      "company": "TRANSPORT",
+      "role": "CHAUFFAUR",
+      "sourceFile": "TRANSPORT.xls"
+    },
+    {
+      "employeeId": "T0117",
+      "employeeName": "TOURCHE TAHAR",
+      "baseSalary": 47300,
+      "company": "TRANSPORT",
+      "role": "CONDUCTEUR D'ENGINS",
+      "sourceFile": "TRANSPORT.xls"
+    },
+    {
+      "employeeId": "T0118",
+      "employeeName": "BEDAHI BRAHIM",
+      "baseSalary": 25900,
+      "company": "TRANSPORT",
+      "role": "CHAUFFEUR P.L",
+      "sourceFile": "TRANSPORT.xls"
+    },
+    {
+      "employeeId": "T0119",
+      "employeeName": "NACEUR NOURREDINE",
+      "baseSalary": 40600,
+      "company": "TRANSPORT",
+      "role": "CHAUFFEUR S.R",
+      "sourceFile": "TRANSPORT.xls"
+    },
+    {
+      "employeeId": "T0120",
+      "employeeName": "KHERAKHRIA KAMEL",
+      "baseSalary": 24000,
+      "company": "TRANSPORT",
+      "role": "CHAHFFEUR V.L",
+      "sourceFile": "TRANSPORT.xls"
+    },
+    {
+      "employeeId": "T0121",
+      "employeeName": "BEKHOUCHE YASSINE",
+      "baseSalary": 33400,
+      "company": "TRANSPORT",
+      "role": "CHAUFFEUR P.L",
+      "sourceFile": "TRANSPORT.xls"
+    }
+  ]
+}

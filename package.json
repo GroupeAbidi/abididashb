@@ -1,0 +1,26 @@
+{
+  "name": "abidi-stock-dashboard",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 4173",
+    "start": "vite --host 127.0.0.1 --port 4173 --open",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 4173",
+    "data:refresh": "node scripts/build-initial-data.mjs",
+    "data:minoterie": "node scripts/build-minoterie-data.mjs",
+    "data:attendance": "node scripts/sync-zkteco.mjs",
+    "data:salary-base": "node scripts/build-salary-base-data.mjs"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "latest",
+    "lucide-react": "latest",
+    "pdfjs-dist": "^6.3.289",
+    "react": "latest",
+    "react-dom": "latest",
+    "recharts": "latest",
+    "vite": "latest",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+  }
+}
