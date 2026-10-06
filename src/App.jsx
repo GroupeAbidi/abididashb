@@ -58,6 +58,7 @@ import {
   monthLabel,
   parseExcelFile,
 } from "./lib/data.js";
+import { archiveImportedFile, loadSavedState, saveDashboardState } from "./lib/persistence.js";
 
 const MinoterieDashboard = lazy(() => import("./MinoterieDashboard.jsx"));
 const AttendanceDashboard = lazy(() => import("./AttendanceDashboard.jsx"));
@@ -3040,6 +3041,27 @@ export default function App() {
   );
 
   useEffect(() => {
+    let mounted = true;
+    const hydrate = async (key, setter) => {
+      try {
+        const saved = await loadSavedState(key);
+        if (mounted && saved) setter(saved);
+      } catch {
+        /* The JSON files and browser cache remain available offline. */
+      }
+    };
+    hydrate('stock-dashboard', setData);
+    hydrate('conserverie-stock', setConserverieData);
+    hydrate('conserverie-brs', setConserverieBrsData);
+    hydrate('conserverie-avarie', setConserverieAvarie);
+    hydrate('conserverie-ordre', setConserverieOrdre);
+    hydrate('conserverie-clients', setConserverieClients);
+    hydrate('conserverie-fellah', setConserverieFellah);
+    hydrate('minoterie-data', setMinoterieData);
+    return () => { mounted = false; };
+  }, []);
+
+  useEffect(() => {
     const saved = localStorage.getItem("abidi-dashboard-data");
     if (saved) {
       try {
@@ -3163,6 +3185,8 @@ export default function App() {
         },
       };
       setData(next);
+      void saveDashboardState('stock-dashboard', next).catch(() => {});
+      void archiveImportedFile('stock', kind, file).catch(() => {});
       try {
         localStorage.setItem("abidi-dashboard-data", JSON.stringify(next));
       } catch {
@@ -3187,6 +3211,8 @@ export default function App() {
         await import("./lib/conserverie-stock-pdf.js");
       const parsed = await parseConserverieStockPdf(file);
       setConserverieData(parsed);
+      void saveDashboardState('conserverie-stock', parsed).catch(() => {});
+      void archiveImportedFile('conserverie', 'stock', file).catch(() => {});
       localStorage.setItem("abidi-conserverie-stock", JSON.stringify(parsed));
       setConserverieMessage({
         type: "ok",
@@ -3210,6 +3236,8 @@ export default function App() {
       const { parseConserverieBrs } = await import("./lib/conserverie-brs.js");
       const parsed = await parseConserverieBrs(file);
       setConserverieBrsData(parsed);
+      void saveDashboardState('conserverie-brs', parsed).catch(() => {});
+      void archiveImportedFile('conserverie', 'brs', file).catch(() => {});
       localStorage.setItem("abidi-conserverie-brs", JSON.stringify(parsed));
       setConserverieBrsMessage({
         type: "ok",
@@ -3231,6 +3259,8 @@ export default function App() {
         await import("./lib/conserverie-avarie.js");
       const parsed = await parseConserverieAvariePdf(file);
       setConserverieAvarie(parsed);
+      void saveDashboardState('conserverie-avarie', parsed).catch(() => {});
+      void archiveImportedFile('conserverie', 'avarie', file).catch(() => {});
       localStorage.setItem("abidi-conserverie-avarie", JSON.stringify(parsed));
       setConserverieAvarieMessage({
         type: "ok",
@@ -3252,6 +3282,8 @@ export default function App() {
         await import("./lib/conserverie-avarie.js");
       const parsed = await parseConserverieOrdre(file);
       setConserverieOrdre(parsed);
+      void saveDashboardState('conserverie-ordre', parsed).catch(() => {});
+      void archiveImportedFile('conserverie', 'ordre', file).catch(() => {});
       localStorage.setItem("abidi-conserverie-ordre", JSON.stringify(parsed));
       setConserverieOrdreMessage({
         type: "ok",
@@ -3273,6 +3305,8 @@ export default function App() {
         await import("./lib/conserverie-clients.js");
       const parsed = await parseConserverieClients(file);
       setConserverieClients(parsed);
+      void saveDashboardState('conserverie-clients', parsed).catch(() => {});
+      void archiveImportedFile('conserverie', 'clients', file).catch(() => {});
       localStorage.setItem("abidi-conserverie-clients", JSON.stringify(parsed));
       setConserverieClientsMessage({
         type: "ok",
@@ -3294,6 +3328,8 @@ export default function App() {
         await import("./lib/conserverie-fellah.js");
       const parsed = await parseConserverieFellah(file);
       setConserverieFellah(parsed);
+      void saveDashboardState('conserverie-fellah', parsed).catch(() => {});
+      void archiveImportedFile('conserverie', 'fellah', file).catch(() => {});
       localStorage.setItem("abidi-conserverie-fellah", JSON.stringify(parsed));
       setConserverieFellahMessage({
         type: "ok",
@@ -3356,6 +3392,7 @@ export default function App() {
           data={minoterieData}
           onData={(next) => {
             setMinoterieData(next);
+            void saveDashboardState('minoterie-data', next).catch(() => {});
             try {
               localStorage.setItem(
                 "abidi-minoterie-data",

@@ -10,6 +10,7 @@ import {
 } from 'recharts';
 import { aggregate, mergeMinoterieData, parseBalanceClientFile, parseCostAccountingFile, parseEncaissementFile, parseMinoterieFile, parseWheatTrackingFile } from './lib/minoterie-data.js';
 import { parseMinoterieStockPdf } from './lib/minoterie-stock-pdf.js';
+import { archiveImportedFile } from './lib/persistence.js';
 import './minoterie.css';
 
 const COLORS = ['#7a3024', '#c99715', '#3f6f68', '#d8b75a', '#a95b48', '#6e7e7b', '#b9913a'];
@@ -990,6 +991,7 @@ export default function MinoterieDashboard({ data, onData, onBack }) {
           : { ...currentMonth, [target.type]: item };
         return { ...current, [registryKey]: monthFiles };
       });
+      void archiveImportedFile('minoterie', `${target.month.replace('-', '_')}_${target.type}`, file).catch(() => {});
       setNotice(target.type === 'wheatTracking' ? `${file.name} importé · ${registryDetails.rows} pesées analysées.` : target.type === 'collections' ? `${file.name} importé · ${registryDetails.rows} encaissements · ${registryDetails.months} mois · ${registryDetails.period}.` : target.type === 'balance' ? `${file.name} importé · Créances ${money(registryDetails.grossReceivables)} · Avances ${money(registryDetails.clientAdvances)} · Net officiel ${money(registryDetails.officialNet)} · ${registryDetails.balanceStatus}.` : target.type === 'costAccounting' ? `${file.name} importé · ${registryDetails.products} produits · Coût total ${money(registryDetails.totalCost)} · Marge ${money(registryDetails.netMargin)}.` : target.type === 'stockPdf' ? `${file.name} importé · Production ${n(registryDetails.production,2)} qtx · Ventes nettes ${n(registryDetails.netSales,2)} qtx · ${registryDetails.negativeStocks} stocks négatifs.` : `${file.name} importé pour ${target.month} · ${IMPORT_TYPES.find(([type])=>type===target.type)?.[1]}.`);
     } catch (err) {
       setError(`${file.name} : ${err instanceof Error ? err.message : 'lecture du fichier impossible'}`);

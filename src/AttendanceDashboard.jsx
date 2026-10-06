@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { AlertTriangle, ArrowLeft, BadgeCheck, CalendarDays, ChevronRight, CircleDollarSign, Download, FileCheck2, FileSpreadsheet, LayoutDashboard, ListChecks, Menu, PanelLeftClose, PanelLeftOpen, RotateCcw, Search, Settings2, ShieldCheck, Upload, Users, X } from 'lucide-react';
 import { buildAgrosatiControl, CONTROL_COMPANIES, DEFAULT_CONTROL_RULES, exportControlAnomalies, parseHrWorkbook, parseMachineWorkbook, parsePayrollWorkbook } from './lib/agrosati-control.js';
+import { archiveImportedFile, loadSavedState, saveDashboardState } from './lib/persistence.js';
 import './minoterie.css';
 
 const money = new Intl.NumberFormat('fr-DZ', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -66,6 +67,27 @@ export default function AttendanceDashboard({ onBack }) {
   const [salaryBaseData, setSalaryBaseData] = useState(null);
   const [salaryBaseError, setSalaryBaseError] = useState('');
   useEffect(() => { fetch('/data/salary-base.json').then((response) => { if (!response.ok) throw new Error('Base salariale introuvable.'); return response.json(); }).then(setSalaryBaseData).catch((error) => setSalaryBaseError(error.message)); }, []);
+  useEffect(() => {
+    let mounted = true;
+    const restore = async () => {
+      try {
+        const [machine, hr, ...payroll] = await Promise.all([
+          loadSavedState('attendance-machine'), loadSavedState('attendance-hr'),
+          ...CONTROL_COMPANIES.map((company) => loadSavedState(`attendance-payroll-${company.key.toLowerCase()}`)),
+        ]);
+        if (!mounted) return;
+        if (machine) setSources((current) => ({ ...current, machine }));
+        if (hr) setSources((current) => ({ ...current, hr }));
+        const restoredPayroll = Object.fromEntries(payroll.map((data, index) => [CONTROL_COMPANIES[index].key, data]).filter(([, data]) => data));
+        if (Object.keys(restoredPayroll).length) {
+          setPayrollSources(restoredPayroll);
+          setSources((current) => ({ ...current, payroll: Object.values(restoredPayroll)[0] }));
+        }
+      } catch { /* Imports can still be loaded manually when the server is offline. */ }
+    };
+    restore();
+    return () => { mounted = false; };
+  }, []);
   const importCoverage = useMemo(() => {
     const reference = salaryBaseData?.employees || [];
     if (!reference.length) return [];
@@ -102,7 +124,13 @@ export default function AttendanceDashboard({ onBack }) {
         parsed.meta.company = company;
         setPayrollSources((current) => ({ ...current, [company]: parsed }));
         setSources((current) => ({ ...current, payroll: parsed }));
-      } else setSources((current) => ({ ...current, [type]: parsed }));
+        void saveDashboardState(`attendance-payroll-${company.toLowerCase()}`, parsed).catch(() => {});
+        void archiveImportedFile('attendance', `payroll_${company.toLowerCase()}`, file).catch(() => {});
+      } else {
+        setSources((current) => ({ ...current, [type]: parsed }));
+        void saveDashboardState(`attendance-${type}`, parsed).catch(() => {});
+        void archiveImportedFile('attendance', type, file).catch(() => {});
+      }
     } catch (error) { const key = type === 'payroll' ? payrollImportCompany.current : type; setErrors((current) => ({ ...current, [key]: error.message || 'Fichier non reconnu.' })); }
     finally { setLoading(''); }
   };
