@@ -56,7 +56,7 @@ const serveStatic = async (request, response, pathname) => {
   if (!candidate.startsWith(resolve(distDirectory))) return sendJson(response, 403, { error: 'Accès refusé.' });
   try {
     await access(candidate);
-    const types = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json; charset=utf-8', '.png': 'image/png', '.svg': 'image/svg+xml' };
+    const types = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json; charset=utf-8', '.png': 'image/png', '.svg': 'image/svg+xml' };
     response.writeHead(200, { 'Content-Type': types[extname(candidate)] || 'application/octet-stream' });
     createReadStream(candidate).pipe(response);
   } catch {

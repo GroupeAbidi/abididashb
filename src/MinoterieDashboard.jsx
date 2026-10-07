@@ -784,7 +784,7 @@ function WheatTracking({ tracking, filters, onImport, busy }) {
   </>;
 }
 
-function MonthlyImports({ registry, year, onYearChange, onPick, busyKey }) {
+function MonthlyImports({ data, registry, year, onYearChange, onPick, busyKey }) {
   const importedCount = MONTH_NAMES.reduce((total, _, index) => {
     const month = `${year}-${String(index + 1).padStart(2, '0')}`;
     return total + IMPORT_TYPES.filter(([type]) => registry[month]?.[type]).length;
@@ -793,8 +793,16 @@ function MonthlyImports({ registry, year, onYearChange, onPick, busyKey }) {
     const month = `${year}-${String(index + 1).padStart(2, '0')}`;
     return IMPORT_TYPES.every(([type]) => registry[month]?.[type]);
   }).length;
-  const annualPdf = registry[`${year}-pdf`]?.stockPdf;
-  const globalCollections = registry.global?.collections;
+  const savedAnnualPdf = data.stockPdf?.meta?.lastDate?.startsWith(`${year}-`) ? {
+    fileName: data.stockPdf.meta.fileName,
+    period: `${data.stockPdf.meta.firstDate} → ${data.stockPdf.meta.lastDate}`,
+    pages: data.stockPdf.meta.pages,
+    production: data.stockPdf.totals?.production,
+    netSales: data.stockPdf.totals?.netSales,
+  } : null;
+  const annualPdf = registry[`${year}-pdf`]?.stockPdf || savedAnnualPdf;
+  const savedCollections = data.collections?.length ? { fileName: data.meta?.collectionFile || data.meta?.fileName, rows: data.collections.length } : null;
+  const globalCollections = registry.global?.collections || savedCollections;
   return <>
     <section className="mino-title import-title"><span><FileSpreadsheet size={16}/> Administration des sources</span><h2>Importation des données</h2><p>Importez le fichier global Encaissements une seule fois. Les fichiers Commercial, Ventes, Production et Balance client restent organisés par mois.</p></section>
     <section className="import-summary">
@@ -1013,7 +1021,7 @@ export default function MinoterieDashboard({ data, onData, onBack }) {
       {tab!=='imports'&&filters.unit && <div className="mino-scope-note"><AlertTriangle/> Le filtre {filters.unit} s’applique au blé, à la production et aux ventes identifiées. Recouvrements, caisse et dépenses restent globaux tant que les écritures ne portent pas l’unité G/M.</div>}
       {error&&<div className="mino-error"><AlertTriangle/>{error}<button onClick={()=>setError('')}><X/></button></div>}
       {notice&&<div className="mino-success"><CheckCircle2/>{notice}<button onClick={()=>setNotice('')}><X/></button></div>}
-      <div className="mino-content">{tab==='overview'&&<Overview model={model} filteredUnit={filters.unit} onImportCollections={()=>setTab('imports')}/>} {tab==='wheat'&&<WheatProduction model={model}/>} {tab==='teams'&&<Teams model={model}/>} {tab==='sales'&&<SalesFinance model={model}/>} {tab==='costAccounting'&&<CostAccounting costing={activeCostAccounting} allCosting={data.costAccountingByMonth} onImport={()=>setTab('imports')}/>} {tab==='wheatTracking'&&<WheatTracking tracking={data.wheatTracking} filters={filters} onImport={()=>pickMonthlyFile('tracking','wheatTracking')} busy={busyImport==='tracking:wheatTracking'}/>} {tab==='credits'&&<ClientCredits model={model} filters={filters}/>} {tab==='cash'&&<Cash model={model}/>} {tab==='anomalies'&&<Anomalies model={model}/>} {tab==='imports'&&<MonthlyImports registry={importRegistry} year={importYear} onYearChange={setImportYear} onPick={pickMonthlyFile} busyKey={busyImport}/>}</div>
+      <div className="mino-content">{tab==='overview'&&<Overview model={model} filteredUnit={filters.unit} onImportCollections={()=>setTab('imports')}/>} {tab==='wheat'&&<WheatProduction model={model}/>} {tab==='teams'&&<Teams model={model}/>} {tab==='sales'&&<SalesFinance model={model}/>} {tab==='costAccounting'&&<CostAccounting costing={activeCostAccounting} allCosting={data.costAccountingByMonth} onImport={()=>setTab('imports')}/>} {tab==='wheatTracking'&&<WheatTracking tracking={data.wheatTracking} filters={filters} onImport={()=>pickMonthlyFile('tracking','wheatTracking')} busy={busyImport==='tracking:wheatTracking'}/>} {tab==='credits'&&<ClientCredits model={model} filters={filters}/>} {tab==='cash'&&<Cash model={model}/>} {tab==='anomalies'&&<Anomalies model={model}/>} {tab==='imports'&&<MonthlyImports data={data} registry={importRegistry} year={importYear} onYearChange={setImportYear} onPick={pickMonthlyFile} busyKey={busyImport}/>}</div>
       <footer className="mino-footer"><span>Groupe ABIDI · Dashboard Minoterie</span><span>Ratio matière indicatif jusqu’à validation de la consommation réelle du blé</span></footer>
     </main>
   </div>;
