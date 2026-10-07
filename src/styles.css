@@ -875,3 +875,40 @@ footer { border-top: 1px solid rgba(111,84,65,.08); }
 .control-company-filter{display:flex;align-items:end;min-height:0;padding:13px 16px}.control-company-filter label{display:grid;width:min(310px,100%);gap:7px}.control-company-filter label>span{color:#83766d;font-size:8px;font-weight:850;text-transform:uppercase}.control-company-filter select{width:100%;height:40px;padding:0 10px;border:1px solid #d8dfda;border-radius:8px;color:#34443e;background:#f7f8f5;font:inherit;font-size:9px}
 @media(max-width:900px){.attendance-dashboard .control-import-grid{grid-template-columns:1fr}.control-payroll-imports{grid-template-columns:repeat(2,minmax(0,1fr))}.control-coverage-grid{grid-template-columns:1fr}}
 @media(max-width:560px){.attendance-dashboard .control-import-grid>button,.control-payroll-imports>button{grid-template-columns:auto minmax(0,1fr);padding:13px}.attendance-dashboard .control-import-grid>button>svg,.control-payroll-imports>button>svg{display:none}.control-coverage-card{padding:13px}.control-coverage-card>header{gap:5px}.control-coverage-source>header{padding:12px}.control-coverage-source>header>span{margin-top:1px;white-space:nowrap}.control-coverage-source summary{align-items:flex-start;padding:11px 12px;line-height:1.45}.control-coverage-source summary b{margin-left:0}.control-coverage-source summary::after{margin-left:auto}.control-coverage-list{max-height:180px;padding:0 12px 9px}.control-coverage-list>div{padding:9px 0}.control-payroll-imports{grid-template-columns:1fr}.control-coverage-source header small{overflow:visible;text-overflow:clip;white-space:normal;overflow-wrap:anywhere}}
+
+/* Shared small-screen safeguards for every dashboard. */
+@media (max-width: 760px) {
+  html, body { overflow-x: hidden; }
+  .topbar { align-items: flex-start; flex-wrap: wrap; gap: 12px; min-height: auto; padding-block: 14px; }
+  .topbar > div { min-width: 0; }
+  .topbar h1 { overflow-wrap: anywhere; }
+  .topbar-actions, .header-actions { width: 100%; justify-content: flex-start; flex-wrap: wrap; }
+  .filter-bar { display: grid; grid-template-columns: 1fr 1fr; align-items: end; }
+  .filter-bar > * { min-width: 0; }
+  .filter-bar input, .filter-bar select { min-width: 0; }
+  .content { min-width: 0; }
+  .panel, .stat-card { min-width: 0; }
+  .table-wrap, .data-table-wrap, .attendance-table-wrap, .attendance-table, .mino-table-scroll { max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .table-wrap table, .data-table-wrap table, .attendance-table-wrap table { min-width: 720px; }
+  .attendance-dashboard.mino-content { padding-inline: 16px; }
+  .attendance-kpi-grid, .attendance-official-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .attendance-analysis-grid, .attendance-grid { grid-template-columns: 1fr; }
+  .attendance-title-row, .attendance-section-title { align-items: flex-start; flex-direction: column; gap: 12px; }
+  .attendance-source { flex-basis: auto; width: 100%; }
+  .control-hero { align-items: flex-start; flex-direction: column; padding: 20px; }
+  .control-detail-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 480px) {
+  .topbar, .filter-bar, .content { padding-inline: 12px; }
+  .filter-bar { grid-template-columns: 1fr; }
+  .filter-bar .search-field, .filter-bar .search-control { grid-column: auto; }
+  .attendance-dashboard.mino-content { padding: 16px 12px 88px; }
+  .attendance-title-row, .attendance-card, .attendance-panel, .control-coverage-card { border-radius: 12px; }
+  .attendance-kpi-grid, .attendance-official-kpis, .control-detail-summary, .control-payroll-grid { grid-template-columns: 1fr; }
+  .attendance-kpi { padding: 13px; }
+  .control-empty, .attendance-control-empty { min-height: 220px; padding: 24px 16px; }
+  .control-rule-grid { grid-template-columns: 1fr; }
+  .control-day-grid { grid-template-columns: 1fr; }
+  .attendance-source { padding: 12px; }
+}

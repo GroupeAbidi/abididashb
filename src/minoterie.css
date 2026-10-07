@@ -2987,6 +2987,37 @@
     grid-template-columns: 1fr !important;
   }
 }
+
+/* Final mobile pass for Minoterie and Conserverie operational views. */
+@media (max-width: 760px) {
+  .mino-topbar { min-height: auto; align-items: flex-start; flex-wrap: wrap; gap: 12px; padding-block: 14px; }
+  .mino-topbar > div { min-width: 0; }
+  .mino-topbar h1 { overflow-wrap: anywhere; }
+  .mino-topbar .mino-upload { margin-left: auto; }
+  .mino-content { min-width: 0; }
+  .mino-panel, .mino-kpi, .month-import-card, .annual-pdf-import { min-width: 0; }
+  .mino-panel > header, .monthly-imports > header { align-items: flex-start; flex-wrap: wrap; gap: 10px; }
+  .mino-table-scroll { max-width: 100%; -webkit-overflow-scrolling: touch; }
+  .mino-table-scroll table { min-width: 680px; }
+  .mino-filters { gap: 8px; }
+  .mino-filters label { min-width: 140px; }
+  .conserve-powerbi .mino-content { padding-inline: 16px; }
+  .import-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .monthly-import-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .mino-content, .conserve-powerbi .mino-content { padding: 16px 12px 34px; }
+  .mino-topbar { padding-inline: 12px; }
+  .mino-topbar .mino-upload { width: 42px; height: 42px; padding: 0; justify-content: center; }
+  .mino-topbar .mino-upload span { display: none; }
+  .mino-panel { padding: 14px; border-radius: 10px; }
+  .annual-pdf-import { padding: 13px; }
+  .month-file-list button { grid-template-columns: 30px minmax(0, 1fr); padding: 11px; }
+  .month-file-list button > b { display: none; }
+  .import-summary { grid-template-columns: 1fr; }
+  .mino-chart, .mino-chart.tall, .mino-chart.x-tall { height: 240px; }
+}
 .conserve-powerbi .secondary-kpi {
   display: none;
 }
