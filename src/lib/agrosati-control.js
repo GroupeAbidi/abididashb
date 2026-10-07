@@ -233,13 +233,13 @@ export function buildAgrosatiControl(machineData, hrData, payrollData, customRul
     const hourlyBase = salaryBaseRecord ? salaryBaseRecord.baseSalary / payrollDays / Number(rules.shiftHours || 8) : 0;
     const expectedAbsenceDeduction = salaryBaseRecord ? unpaidAbsences * salaryBaseRecord.baseSalary / payrollDays + unpaidHours * hourlyBase : null;
     const expectedBaseAfterAttendance = salaryBaseRecord ? Math.max(0, salaryBaseRecord.baseSalary - expectedAbsenceDeduction) : null;
+    const realOvertime = payroll.overtime;
+    const finalPresenceBalance = expectedBaseAfterAttendance === null ? null : expectedBaseAfterAttendance + realOvertime;
     const scheduledDays = saturdayOnly ? days.filter((day) => isSaturday(controlPeriod, Number(day.day))).length : payrollDays;
     const expectedPresence = Math.max(0, scheduledDays - unpaidAbsences);
-    const calculatedNet = payroll.taxableSalary - payroll.incomeTax + payroll.singleSalary - payroll.salaryDeduction;
     const absenceMismatch = salaryBaseRecord ? !nearlyEqual(expectedAbsenceDeduction, payroll.absenceDeduction, 0.02) : false;
     const baseSalaryMismatch = salaryBaseRecord ? !nearlyEqual(expectedBaseAfterAttendance, payroll.baseSalary, 0.02) : false;
     const presenceMismatch = !nearlyEqual(expectedPresence, payroll.presenceDays, 0.01) && payroll.leaveDays === 0;
-    const netMismatch = !nearlyEqual(calculatedNet, payroll.netPay, 0.02);
     const issues = [];
     if (!salaryBaseRecord) issues.push('missing-base');
     if (!hr) issues.push('missing-hr');
@@ -250,8 +250,7 @@ export function buildAgrosatiControl(machineData, hrData, payrollData, customRul
     if (absenceMismatch) issues.push('absence-payroll');
     if (baseSalaryMismatch) issues.push('base-salary-payroll');
     if (presenceMismatch) issues.push('presence-payroll');
-    if (netMismatch) issues.push('net-payroll');
-    return { employeeId: payroll.employeeId, employeeName: payroll.employeeName, role: payroll.role, company: company.key, companyLabel: company.label, machine, hr, payroll, salaryBaseRecord, contractualBaseSalary: salaryBaseRecord?.baseSalary ?? null, unpaidAbsences, unpaidHours, rhDifferences, reviews, expectedAbsenceDeduction, expectedBaseAfterAttendance, expectedPresence, calculatedNet, absenceMismatch, baseSalaryMismatch, presenceMismatch, netMismatch, days, issues, status: issues.length ? issues[0] : 'correct' };
+    return { employeeId: payroll.employeeId, employeeName: payroll.employeeName, role: payroll.role, company: company.key, companyLabel: company.label, machine, hr, payroll, salaryBaseRecord, contractualBaseSalary: salaryBaseRecord?.baseSalary ?? null, unpaidAbsences, unpaidHours, rhDifferences, reviews, expectedAbsenceDeduction, expectedBaseAfterAttendance, realOvertime, finalPresenceBalance, expectedPresence, absenceMismatch, baseSalaryMismatch, presenceMismatch, days, issues, status: issues.length ? issues[0] : 'correct' };
   });
   const nonPayroll = machineEmployees.filter((employee) => !payrollById.has(employee.employeeId));
   return {
@@ -260,9 +259,9 @@ export function buildAgrosatiControl(machineData, hrData, payrollData, customRul
       controlled: employees.length,
       rhDifferences: employees.filter((employee) => employee.rhDifferences > 0).length,
       pendingReviews: employees.filter((employee) => employee.reviews > 0 || !employee.hr).length,
-      payrollAnomalies: employees.filter((employee) => employee.absenceMismatch || employee.baseSalaryMismatch || employee.presenceMismatch || employee.netMismatch).length,
+      payrollAnomalies: employees.filter((employee) => employee.absenceMismatch || employee.baseSalaryMismatch || employee.presenceMismatch).length,
       salaryBaseMissing: employees.filter((employee) => !employee.salaryBaseRecord).length,
-      totalNet: employees.reduce((sum, employee) => sum + employee.payroll.netPay, 0),
+      totalPresenceBalance: employees.reduce((sum, employee) => sum + (employee.finalPresenceBalance || 0), 0),
       totalAbsenceDeductions: employees.reduce((sum, employee) => sum + employee.payroll.absenceDeduction, 0),
     },
   };
@@ -276,8 +275,8 @@ export async function exportControlAnomalies(model) {
     'Heures à déduire': employee.unpaidHours, 'Salaire base attendu': employee.expectedBaseAfterAttendance,
     'Salaire base paie': employee.payroll.baseSalary, 'Présence attendue': employee.expectedPresence,
     'Présence paie': employee.payroll.presenceDays, 'Retenue absence attendue': employee.expectedAbsenceDeduction,
-    'Retenue absence paie': employee.payroll.absenceDeduction, 'Net calculé': employee.calculatedNet,
-    'Net à payer': employee.payroll.netPay, 'Écarts RH': employee.rhDifferences, 'Révisions': employee.reviews,
+    'Retenue absence paie': employee.payroll.absenceDeduction, 'Supplémentaire réel': employee.realOvertime,
+    'Solde présence': employee.finalPresenceBalance, 'Écarts RH': employee.rhDifferences, 'Révisions': employee.reviews,
     Anomalies: employee.issues.join(', '),
   }));
   const workbook = XLSX.utils.book_new();
