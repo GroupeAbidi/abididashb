@@ -195,11 +195,12 @@ export function buildAgrosatiControl(machineData, hrData, payrollData, customRul
     const salaryBaseRecord = salaryBaseById.get(payroll.employeeId) || null;
     const duplicateHr = (hrRecordsById.get(payroll.employeeId) || []).length > 1;
     const saturdayOnly = SATURDAY_ONLY_EMPLOYEES.has(payroll.employeeId);
+    const fullShiftOnPresence = FULL_SHIFT_ON_PRESENCE_EMPLOYEES.has(payroll.employeeId);
     const days = [];
     for (let day = 1; day <= 30; day += 1) {
       const key = String(day).padStart(2, '0');
       const machinePunch = calculateMachineDay(machine?.days[key], rules);
-      const punch = FULL_SHIFT_ON_PRESENCE_EMPLOYEES.has(payroll.employeeId) && machinePunch.raw
+      const punch = fullShiftOnPresence && machinePunch.raw
         ? { ...machinePunch, creditedHours: Number(rules.shiftHours || 8), arrivalPenalty: 0, earlyPenalty: 0 }
         : machinePunch;
       const rhValue = text(hr?.days[key]);
@@ -214,6 +215,7 @@ export function buildAgrosatiControl(machineData, hrData, payrollData, customRul
       else if (!punch.raw && ['C', 'M', 'M/A', 'DC'].includes(rhValue.toUpperCase())) { status = 'review'; label = 'Justificatif à vérifier'; }
       else if (!punch.raw && enteredHours !== null) { status = 'rh-difference'; label = 'Heures RH sans pointage'; }
       else if (punch.raw && rhValue === 'A') { status = 'rh-difference'; label = 'Pointage mais RH absent'; }
+      else if (fullShiftOnPresence && punch.raw && enteredHours !== null) { status = 'correct'; label = 'Présence validée · 8h'; }
       else if (punch.creditedHours !== null && enteredHours !== null) { status = nearlyEqual(punch.creditedHours, enteredHours) ? 'correct' : 'rh-difference'; label = status === 'correct' ? 'Conforme' : 'Heures différentes'; }
       else if (punch.raw && !rhValue) { status = 'rh-difference'; label = 'Pointage absent du RH'; }
       else if (!punch.raw && rhValue === 'A' && restDays[key]) { status = 'review'; label = 'Absence sur jour de repos'; }
