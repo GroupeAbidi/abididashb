@@ -13,6 +13,7 @@ const toMinutes = (value) => {
 
 const normalizeDay = (value) => text(value).padStart(2, '0');
 const SATURDAY_ONLY_EMPLOYEES = new Set(['T0121', 'T0098']);
+const FULL_SHIFT_ON_PRESENCE_EMPLOYEES = new Set(['A0239']);
 
 const isSaturday = (period, day) => {
   const match = text(period).match(/^(\d{4})-(\d{2})$/);
@@ -197,7 +198,10 @@ export function buildAgrosatiControl(machineData, hrData, payrollData, customRul
     const days = [];
     for (let day = 1; day <= 30; day += 1) {
       const key = String(day).padStart(2, '0');
-      const punch = calculateMachineDay(machine?.days[key], rules);
+      const machinePunch = calculateMachineDay(machine?.days[key], rules);
+      const punch = FULL_SHIFT_ON_PRESENCE_EMPLOYEES.has(payroll.employeeId) && machinePunch.raw
+        ? { ...machinePunch, creditedHours: Number(rules.shiftHours || 8), arrivalPenalty: 0, earlyPenalty: 0 }
+        : machinePunch;
       const rhValue = text(hr?.days[key]);
       const enteredHours = hrHours(rhValue);
       let status = 'empty';
