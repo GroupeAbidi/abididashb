@@ -903,6 +903,7 @@ export default function MinoterieDashboard({ data, onData, onBack }) {
         throw new Error(`Importez d’abord le fichier Commercial de ${target.month}.`);
       }
       let registryDetails = {};
+      let stockPdfYear = target.month;
       if (target.type === 'wheatTracking') {
         if (!/\.xlsx?$/i.test(file.name)) throw new Error('Sélectionnez le fichier Excel SUIVE BLE.');
         const wheatTracking = await parseWheatTrackingFile(file);
@@ -913,8 +914,8 @@ export default function MinoterieDashboard({ data, onData, onBack }) {
       } else if (target.type === 'stockPdf') {
         if (!/\.pdf$/i.test(file.name)) throw new Error('Sélectionnez un fichier PDF de fiche de stock.');
         const stockPdf = await parseMinoterieStockPdf(file);
-        const detectedYear = (stockPdf.meta.firstDate || stockPdf.meta.lastDate || '').slice(0, 4);
-        if (detectedYear && detectedYear !== target.month) throw new Error(`Ce PDF concerne ${detectedYear}, pas ${target.month}.`);
+        stockPdfYear = (stockPdf.meta.lastDate || stockPdf.meta.firstDate || '').slice(0, 4) || target.month;
+        if (stockPdfYear) setImportYear(stockPdfYear);
         const pdfMonths = [...new Set(stockPdf.rows.map((row) => row.date?.slice(0, 7)).filter(Boolean))];
         const months = [...new Set([...(data.meta.months || []), ...pdfMonths])].sort();
         onData({ ...data, stockPdf, meta: { ...data.meta, months, stockPdfFile: file.name, stockPdfFirstDate: stockPdf.meta.firstDate, stockPdfLastDate: stockPdf.meta.lastDate } });
@@ -984,14 +985,14 @@ export default function MinoterieDashboard({ data, onData, onBack }) {
       setImportRegistry((current) => {
         if (target.type === 'wheatTracking') return current;
         const item = { fileName: file.name, importedAt: new Date().toISOString(), ...registryDetails };
-        const registryKey = target.type === 'stockPdf' ? `${target.month}-pdf` : target.month;
+        const registryKey = target.type === 'stockPdf' ? `${stockPdfYear}-pdf` : target.month;
         const currentMonth = current[registryKey] || {};
         const monthFiles = target.type === 'stockPdf'
           ? { ...currentMonth, stockPdf: item }
           : { ...currentMonth, [target.type]: item };
         return { ...current, [registryKey]: monthFiles };
       });
-      void archiveImportedFile('minoterie', `${target.month.replace('-', '_')}_${target.type}`, file).catch(() => {});
+      void archiveImportedFile('minoterie', `${(target.type === 'stockPdf' ? stockPdfYear : target.month).replace('-', '_')}_${target.type}`, file).catch(() => {});
       setNotice(target.type === 'wheatTracking' ? `${file.name} importé · ${registryDetails.rows} pesées analysées.` : target.type === 'collections' ? `${file.name} importé · ${registryDetails.rows} encaissements · ${registryDetails.months} mois · ${registryDetails.period}.` : target.type === 'balance' ? `${file.name} importé · Créances ${money(registryDetails.grossReceivables)} · Avances ${money(registryDetails.clientAdvances)} · Net officiel ${money(registryDetails.officialNet)} · ${registryDetails.balanceStatus}.` : target.type === 'costAccounting' ? `${file.name} importé · ${registryDetails.products} produits · Coût total ${money(registryDetails.totalCost)} · Marge ${money(registryDetails.netMargin)}.` : target.type === 'stockPdf' ? `${file.name} importé · Production ${n(registryDetails.production,2)} qtx · Ventes nettes ${n(registryDetails.netSales,2)} qtx · ${registryDetails.negativeStocks} stocks négatifs.` : `${file.name} importé pour ${target.month} · ${IMPORT_TYPES.find(([type])=>type===target.type)?.[1]}.`);
     } catch (err) {
       setError(`${file.name} : ${err instanceof Error ? err.message : 'lecture du fichier impossible'}`);
