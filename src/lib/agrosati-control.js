@@ -230,13 +230,15 @@ export function buildAgrosatiControl(machineData, hrData, payrollData, customRul
     const rhDifferences = days.filter((day) => day.status === 'rh-difference').length;
     const reviews = days.filter((day) => day.status === 'review').length;
     const payrollDays = Math.max(1, Number(rules.payrollDays || 22));
+    // Convert calendar absences to payable days: 2.1 becomes 2, 2.7 becomes 3.
+    const payableAbsences = Math.round(unpaidAbsences * payrollDays / 30);
     const hourlyBase = salaryBaseRecord ? salaryBaseRecord.baseSalary / payrollDays / Number(rules.shiftHours || 8) : 0;
-    const expectedAbsenceDeduction = salaryBaseRecord ? unpaidAbsences * salaryBaseRecord.baseSalary / payrollDays + unpaidHours * hourlyBase : null;
+    const expectedAbsenceDeduction = salaryBaseRecord ? payableAbsences * salaryBaseRecord.baseSalary / payrollDays + unpaidHours * hourlyBase : null;
     const expectedBaseAfterAttendance = salaryBaseRecord ? Math.max(0, salaryBaseRecord.baseSalary - expectedAbsenceDeduction) : null;
     const realOvertime = payroll.overtime;
     const finalPresenceBalance = expectedBaseAfterAttendance === null ? null : expectedBaseAfterAttendance + realOvertime;
     const scheduledDays = saturdayOnly ? days.filter((day) => isSaturday(controlPeriod, Number(day.day))).length : payrollDays;
-    const expectedPresence = Math.max(0, scheduledDays - unpaidAbsences);
+    const expectedPresence = Math.max(0, scheduledDays - payableAbsences);
     const absenceMismatch = salaryBaseRecord ? !nearlyEqual(expectedAbsenceDeduction, payroll.absenceDeduction, 0.02) : false;
     const baseSalaryMismatch = salaryBaseRecord ? !nearlyEqual(expectedBaseAfterAttendance, payroll.baseSalary, 0.02) : false;
     const presenceMismatch = !nearlyEqual(expectedPresence, payroll.presenceDays, 0.01) && payroll.leaveDays === 0;
@@ -250,7 +252,7 @@ export function buildAgrosatiControl(machineData, hrData, payrollData, customRul
     if (absenceMismatch) issues.push('absence-payroll');
     if (baseSalaryMismatch) issues.push('base-salary-payroll');
     if (presenceMismatch) issues.push('presence-payroll');
-    return { employeeId: payroll.employeeId, employeeName: payroll.employeeName, role: payroll.role, company: company.key, companyLabel: company.label, machine, hr, payroll, salaryBaseRecord, contractualBaseSalary: salaryBaseRecord?.baseSalary ?? null, unpaidAbsences, unpaidHours, rhDifferences, reviews, expectedAbsenceDeduction, expectedBaseAfterAttendance, realOvertime, finalPresenceBalance, expectedPresence, absenceMismatch, baseSalaryMismatch, presenceMismatch, days, issues, status: issues.length ? issues[0] : 'correct' };
+    return { employeeId: payroll.employeeId, employeeName: payroll.employeeName, role: payroll.role, company: company.key, companyLabel: company.label, machine, hr, payroll, salaryBaseRecord, contractualBaseSalary: salaryBaseRecord?.baseSalary ?? null, unpaidAbsences, payableAbsences, unpaidHours, rhDifferences, reviews, expectedAbsenceDeduction, expectedBaseAfterAttendance, realOvertime, finalPresenceBalance, expectedPresence, absenceMismatch, baseSalaryMismatch, presenceMismatch, days, issues, status: issues.length ? issues[0] : 'correct' };
   });
   const nonPayroll = machineEmployees.filter((employee) => !payrollById.has(employee.employeeId));
   return {
@@ -272,6 +274,7 @@ export async function exportControlAnomalies(model) {
   const rows = model.employees.filter((employee) => employee.issues.length).map((employee) => ({
     Matricule: employee.employeeId, Salarié: employee.employeeName, Fonction: employee.role,
     'Salaire base contractuel': employee.contractualBaseSalary, 'Absences validées': employee.unpaidAbsences,
+    'Absences payables (jours × 22 / 30)': employee.payableAbsences,
     'Heures à déduire': employee.unpaidHours, 'Salaire base attendu': employee.expectedBaseAfterAttendance,
     'Salaire base paie': employee.payroll.baseSalary, 'Présence attendue': employee.expectedPresence,
     'Présence paie': employee.payroll.presenceDays, 'Retenue absence attendue': employee.expectedAbsenceDeduction,
