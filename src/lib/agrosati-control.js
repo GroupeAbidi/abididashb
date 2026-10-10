@@ -25,8 +25,8 @@ export const DEFAULT_CONTROL_RULES = {
   shiftStarts: ['08:00', '16:00', '00:00'],
   shiftHours: 8,
   entryGraceMinutes: 15,
-  penaltyStepMinutes: 30,
-  penaltyStepHours: 0.5,
+  penaltyStepMinutes: 15,
+  penaltyStepHours: 0.25,
   exitGraceMinutes: 10,
   payrollDays: 22,
 };
@@ -144,9 +144,10 @@ export function calculateMachineDay(value, customRules = DEFAULT_CONTROL_RULES) 
   let normalizedLast = lastMinutes;
   while (normalizedLast < normalizedFirst) normalizedLast += 24 * 60;
   const delay = Math.max(0, normalizedFirst - start);
-  const stepMinutes = Math.max(1, Number(rules.penaltyStepMinutes || 30));
-  const stepHours = Math.max(0, Number(rules.penaltyStepHours || 0.5));
-  const arrivalPenalty = delay <= Number(rules.entryGraceMinutes || 0) ? 0 : Math.ceil(delay / stepMinutes) * stepHours;
+  const stepMinutes = Math.max(1, Number(rules.penaltyStepMinutes || 15));
+  const stepHours = Math.max(0, Number(rules.penaltyStepHours || 0.25));
+  const lateMinutes = Math.max(0, delay - Number(rules.entryGraceMinutes || 0));
+  const arrivalPenalty = lateMinutes ? Math.ceil(lateMinutes / stepMinutes) * stepHours : 0;
   const earlyMinutes = Math.max(0, end - Number(rules.exitGraceMinutes || 0) - normalizedLast);
   const earlyPenalty = earlyMinutes ? Math.ceil(earlyMinutes / stepMinutes) * stepHours : 0;
   const shiftHour = Math.floor(start / 60);
