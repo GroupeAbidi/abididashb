@@ -19,6 +19,9 @@ const TABS = [
   ['settings', 'Paramètres', Settings2],
   ['sources', 'Sources de données', FileSpreadsheet],
 ];
+const validPeriod = (value) => /^20\d{2}-(0[1-9]|1[0-2])$/.test(value || '');
+const monthStateKey = (period, source) => `attendance-${period}-${source}`;
+const monthLabel = (period) => validPeriod(period) ? new Intl.DateTimeFormat('fr-FR', { month: 'long', year: 'numeric' }).format(new Date(`${period}-01T12:00:00`)) : period;
 
 function StatusBadge({ value }) {
   const [label, tone] = STATUS[value] || [value, 'warning'];
@@ -60,6 +63,8 @@ export default function AttendanceDashboard({ onBack }) {
   const inputs = { machine: useRef(null), hr: useRef(null), payroll: useRef(null) };
   const [sources, setSources] = useState({ machine: null, hr: null, payroll: null });
   const [payrollSources, setPayrollSources] = useState({});
+  const [availableMonths, setAvailableMonths] = useState([]);
+  const [activeMonth, setActiveMonth] = useState('');
   const payrollImportCompany = useRef('AGROSATI');
   const [loading, setLoading] = useState(''); const [errors, setErrors] = useState({});
   const [search, setSearch] = useState(''); const [status, setStatus] = useState(''); const [companyFilter, setCompanyFilter] = useState('');
@@ -69,21 +74,44 @@ export default function AttendanceDashboard({ onBack }) {
   const [salaryBaseData, setSalaryBaseData] = useState(null);
   const [salaryBaseError, setSalaryBaseError] = useState('');
   useEffect(() => { fetch('/data/salary-base.json').then((response) => { if (!response.ok) throw new Error('Base salariale introuvable.'); return response.json(); }).then(setSalaryBaseData).catch((error) => setSalaryBaseError(error.message)); }, []);
+  const loadMonth = async (period) => {
+    if (!validPeriod(period)) return;
+    setLoading('month');
+    try {
+      const [machine, hr, ...payroll] = await Promise.all([
+        loadSavedState(monthStateKey(period, 'machine')), loadSavedState(monthStateKey(period, 'hr')),
+        ...CONTROL_COMPANIES.map((company) => loadSavedState(monthStateKey(period, `payroll-${company.key.toLowerCase()}`))),
+      ]);
+      const restoredPayroll = Object.fromEntries(payroll.map((data, index) => [CONTROL_COMPANIES[index].key, data]).filter(([, data]) => data));
+      setActiveMonth(period);
+      setSources({ machine, hr, payroll: Object.values(restoredPayroll)[0] || null });
+      setPayrollSources(restoredPayroll);
+      setSelected(null);
+    } finally { setLoading(''); }
+  };
   useEffect(() => {
     let mounted = true;
     const restore = async () => {
       try {
+        const savedMonths = (await loadSavedState('attendance-months') || []).filter(validPeriod).sort().reverse();
+        if (savedMonths.length) { if (mounted) { setAvailableMonths(savedMonths); await loadMonth(savedMonths[0]); } return; }
         const [machine, hr, ...payroll] = await Promise.all([
           loadSavedState('attendance-machine'), loadSavedState('attendance-hr'),
           ...CONTROL_COMPANIES.map((company) => loadSavedState(`attendance-payroll-${company.key.toLowerCase()}`)),
         ]);
         if (!mounted) return;
-        if (machine) setSources((current) => ({ ...current, machine }));
-        if (hr) setSources((current) => ({ ...current, hr }));
         const restoredPayroll = Object.fromEntries(payroll.map((data, index) => [CONTROL_COMPANIES[index].key, data]).filter(([, data]) => data));
-        if (Object.keys(restoredPayroll).length) {
+        const legacyPeriod = machine?.meta?.period || hr?.meta?.period || Object.values(restoredPayroll)[0]?.meta?.period;
+        if (validPeriod(legacyPeriod)) {
+          const keys = [[monthStateKey(legacyPeriod, 'machine'), machine], [monthStateKey(legacyPeriod, 'hr'), hr], ...Object.entries(restoredPayroll).map(([company, data]) => [monthStateKey(legacyPeriod, `payroll-${company.toLowerCase()}`), data])];
+          await Promise.all(keys.filter(([, data]) => data).map(([key, data]) => saveDashboardState(key, data)));
+          await saveDashboardState('attendance-months', [legacyPeriod]);
+          setAvailableMonths([legacyPeriod]);
+          setActiveMonth(legacyPeriod);
+        }
+        if (machine || hr || Object.keys(restoredPayroll).length) {
           setPayrollSources(restoredPayroll);
-          setSources((current) => ({ ...current, payroll: Object.values(restoredPayroll)[0] }));
+          setSources({ machine, hr, payroll: Object.values(restoredPayroll)[0] || null });
         }
       } catch { /* Imports can still be loaded manually when the server is offline. */ }
     };
@@ -121,17 +149,26 @@ export default function AttendanceDashboard({ onBack }) {
     try {
       const parser = type === 'machine' ? parseMachineWorkbook : type === 'hr' ? parseHrWorkbook : parsePayrollWorkbook;
       const parsed = await parser(file);
+      const period = validPeriod(parsed.meta?.period) ? parsed.meta.period : activeMonth;
+      if (!validPeriod(period)) throw new Error('Le mois du fichier est introuvable. Importez d’abord le pointage machine ou RH du mois.');
+      if (activeMonth && activeMonth !== period) {
+        setSources({ machine: null, hr: null, payroll: null });
+        setPayrollSources({});
+      }
+      const nextMonths = [...new Set([...availableMonths, period])].sort().reverse();
+      setAvailableMonths(nextMonths); setActiveMonth(period);
+      void saveDashboardState('attendance-months', nextMonths).catch(() => {});
       if (type === 'payroll') {
         const company = payrollImportCompany.current;
         parsed.meta.company = company;
         setPayrollSources((current) => ({ ...current, [company]: parsed }));
         setSources((current) => ({ ...current, payroll: parsed }));
-        void saveDashboardState(`attendance-payroll-${company.toLowerCase()}`, parsed).catch(() => {});
-        void archiveImportedFile('attendance', `payroll_${company.toLowerCase()}`, file).catch(() => {});
+        void saveDashboardState(monthStateKey(period, `payroll-${company.toLowerCase()}`), parsed).catch(() => {});
+        void archiveImportedFile('attendance', `${period}_payroll_${company.toLowerCase()}`, file).catch(() => {});
       } else {
         setSources((current) => ({ ...current, [type]: parsed }));
-        void saveDashboardState(`attendance-${type}`, parsed).catch(() => {});
-        void archiveImportedFile('attendance', type, file).catch(() => {});
+        void saveDashboardState(monthStateKey(period, type), parsed).catch(() => {});
+        void archiveImportedFile('attendance', `${period}_${type}`, file).catch(() => {});
       }
     } catch (error) { const key = type === 'payroll' ? payrollImportCompany.current : type; setErrors((current) => ({ ...current, [key]: error.message || 'Fichier non reconnu.' })); }
     finally { setLoading(''); }
@@ -163,6 +200,7 @@ export default function AttendanceDashboard({ onBack }) {
       <header className="mino-topbar"><button className="mino-mobile-menu" onClick={() => setCollapsed((value) => !value)}><Menu /></button><div><span>Opérations / Présence & Accès</span><h1>{tabTitle}</h1></div>{tab === 'anomalies' && model ? <button className="mino-upload" onClick={() => exportControlAnomalies(model)}><Download /><span>Exporter les anomalies</span></button> : tab !== 'sources' && <button className="mino-upload" onClick={() => setTab('sources')}><FileSpreadsheet /><span>Actualiser les sources</span></button>}</header>
       {Object.keys(inputs).map((type) => <input key={type} ref={inputs[type]} hidden type="file" accept=".xlsx,.xls" onChange={(event) => { importFile(type, event.target.files?.[0]); event.target.value = ''; }} />)}
       <div className="mino-content attendance-dashboard control-workspace">
+        {tab === 'sources' && <section className="attendance-filterbar control-company-filter control-month-picker"><label><span>Mois de travail</span><select value={activeMonth} onChange={(event) => loadMonth(event.target.value)} disabled={loading === 'month'}><option value="">Sélectionner un mois</option>{availableMonths.map((period) => <option key={period} value={period}>{monthLabel(period)}</option>)}</select></label><small>{activeMonth ? `Données enregistrées séparément pour ${monthLabel(activeMonth)}.` : 'Chaque mois conserve ses propres fichiers.'}</small></section>}
         {tab === 'overview' && <><section className="control-hero"><div><span><ShieldCheck /> AGROSATI · SEPTEMBRE 2026</span><h2>Rapprochement machine, RH et paie</h2><p>Contrôle de trois postes, des absences et du solde après H+ / H− sur une base de {rules.payrollDays} jours.</p></div>{model && <button className="mino-upload" type="button" onClick={() => setTab('employees')}><ListChecks /><span>Ouvrir le contrôle</span></button>}</section>{model ? <section className="attendance-kpi-grid control-kpis"><Kpi icon={Users} label="Salariés contrôlés" value={model.kpis.controlled} detail={`${model.nonPayroll.length} AGROSATI hors paie`} /><Kpi icon={AlertTriangle} label="Écarts RH" value={model.kpis.rhDifferences} detail="Machine différente du RH" alert={model.kpis.rhDifferences > 0} /><Kpi icon={CalendarDays} label="À réviser" value={model.kpis.pendingReviews} detail="Justificatif ou horaire spécial" alert={model.kpis.pendingReviews > 0} /><Kpi icon={ShieldCheck} label="Anomalies paie" value={model.kpis.payrollAnomalies} detail="Présence et retenues" alert={model.kpis.payrollAnomalies > 0} /><Kpi icon={CircleDollarSign} label="Solde après H+ / H−" value={`${money.format(model.kpis.totalPresenceBalance)} DA`} detail="Salaire de base + H+ − H−" /></section> : <section className="control-empty"><FileSpreadsheet /><h3>Importez les trois fichiers Excel</h3><p>Ouvrez l’onglet Sources de données pour charger le pointage machine, le pointage RH et le journal de paie.</p><button className="attendance-reset" onClick={() => setTab('sources')}>Ouvrir les sources</button></section>}</>}
 
         {(tab === 'employees' || tab === 'anomalies') && model && <section className="attendance-filterbar control-company-filter"><label><span>Société</span><select value={companyFilter} onChange={(event) => setCompanyFilter(event.target.value)}><option value="">Toutes les sociétés</option>{CONTROL_COMPANIES.map((company) => <option key={company.key} value={company.key}>{company.label}</option>)}</select></label></section>}
