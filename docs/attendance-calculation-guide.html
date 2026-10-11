@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AGROSATI Attendance and Salary Calculation Guide</title>
+  <style>
+    @page { size: A4; margin: 15mm; }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: #25332e; background: #fff; font: 10.5pt Arial, sans-serif; line-height: 1.45; }
+    h1 { margin: 0; color: #173d35; font-size: 24pt; }
+    h2 { margin: 24px 0 8px; padding-bottom: 5px; border-bottom: 2px solid #d4a72c; color: #173d35; font-size: 15pt; }
+    h3 { margin: 15px 0 5px; color: #8d481d; font-size: 11.5pt; }
+    p { margin: 6px 0; }
+    .subtitle { margin-top: 5px; color: #6b756f; font-size: 11pt; }
+    .tag { display: inline-block; margin: 2px 4px 2px 0; padding: 3px 7px; border-radius: 4px; color: #175b4d; background: #e4f2ed; font-size: 8.5pt; font-weight: bold; }
+    .note { margin: 10px 0; padding: 10px 12px; border-left: 4px solid #d4a72c; background: #fff8e8; }
+    .formula { margin: 8px 0; padding: 9px 11px; border: 1px solid #d5e1db; border-radius: 5px; color: #174d42; background: #f3f8f5; font-family: Consolas, monospace; font-weight: bold; }
+    table { width: 100%; margin: 8px 0 14px; border-collapse: collapse; font-size: 9.5pt; }
+    th { color: #fff; background: #315f58; text-align: left; }
+    th, td { padding: 7px 8px; border: 1px solid #d7ddd8; vertical-align: top; }
+    tr:nth-child(even) td { background: #f7faf8; }
+    .example { margin: 10px 0; padding: 12px; border: 1px solid #e2d6c4; border-radius: 6px; background: #fffdfa; }
+    .example strong { color: #843d22; }
+    ul { margin: 6px 0 6px 20px; padding: 0; }
+    li { margin: 3px 0; }
+    footer { margin-top: 25px; padding-top: 8px; border-top: 1px solid #d7ddd8; color: #6b756f; font-size: 8.5pt; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>AGROSATI Attendance and Salary Calculation Guide</h1>
+    <p class="subtitle">Presence and Access Dashboard - calculation rules, salary deduction, and examples</p>
+    <span class="tag">H- deduction</span><span class="tag">Absence conversion</span><span class="tag">Salary balance</span>
+  </header>
+
+  <h2>1. Configurable Work Schedule</h2>
+  <p>The dashboard uses the shifts entered in the <strong>Parameters</strong> tab. For AGROSATI, enter these shift starts:</p>
+  <table><thead><tr><th>Shift</th><th>Start</th><th>Scheduled end</th><th>Duration</th></tr></thead><tbody>
+    <tr><td>Day shift</td><td>07:30</td><td>15:30</td><td>8 hours</td></tr>
+    <tr><td>Evening shift</td><td>15:30</td><td>23:30</td><td>8 hours</td></tr>
+    <tr><td>Night shift</td><td>23:30</td><td>07:30 next day</td><td>8 hours</td></tr>
+  </tbody></table>
+  <p>All salary calculations use <strong>22 payable days</strong> and <strong>8 hours per shift</strong>. These values remain editable in Parameters.</p>
+
+  <h2>2. H-: Late Arrival and Early Departure</h2>
+  <p>The entry tolerance is 15 minutes. After that tolerance, H- is deducted in progressive 15-minute blocks.</p>
+  <table><thead><tr><th>Arrival after scheduled start</th><th>H- deduction</th></tr></thead><tbody>
+    <tr><td>0 to 15 minutes</td><td>0 minutes</td></tr>
+    <tr><td>16 to 30 minutes</td><td>15 minutes (0.25 h)</td></tr>
+    <tr><td>31 to 45 minutes</td><td>30 minutes (0.50 h)</td></tr>
+    <tr><td>46 to 60 minutes</td><td>45 minutes (0.75 h)</td></tr>
+  </tbody></table>
+  <div class="formula">Arrival H- = ceil((late minutes - entry tolerance) / 15) x 0.25 hour</div>
+  <p>Early departure follows the same 15-minute blocks after the editable exit tolerance. With a shift ending at 16:00 and a 10-minute exit tolerance:</p>
+  <table><thead><tr><th>Actual exit</th><th>H- deduction</th></tr></thead><tbody>
+    <tr><td>15:50 or later</td><td>0 minutes</td></tr>
+    <tr><td>15:49 to 15:35</td><td>15 minutes (0.25 h)</td></tr>
+    <tr><td>15:34 to 15:20</td><td>30 minutes (0.50 h)</td></tr>
+  </tbody></table>
+
+  <h2>3. Absence Deduction</h2>
+  <h3>One confirmed absence day</h3>
+  <p>For exactly one confirmed absence, the dashboard converts the day into payable hours without rounding it to a full day.</p>
+  <div class="formula">Converted day = 1 x 22 / 30 = 0.7333 day</div>
+  <div class="formula">Absence hours = 0.7333 x 8 = 5.8667 hours (about 5 h 52 min)</div>
+  <div class="formula">One-day absence deduction = absence hours x hourly salary</div>
+
+  <h3>Two or more confirmed absence days</h3>
+  <p>The previous rule remains active: convert days with <strong>days x 22 / 30</strong>, then round to the nearest full payable day.</p>
+  <table><thead><tr><th>Confirmed absences</th><th>Conversion</th><th>Payable absence days used for H-</th></tr></thead><tbody>
+    <tr><td>2 days</td><td>2 x 22 / 30 = 1.4667</td><td>1 day</td></tr>
+    <tr><td>3 days</td><td>3 x 22 / 30 = 2.20</td><td>2 days</td></tr>
+    <tr><td>4 days</td><td>4 x 22 / 30 = 2.9333</td><td>3 days</td></tr>
+  </tbody></table>
+
+  <h2>4. Salary Values</h2>
+  <div class="formula">Daily salary = base salary / 22</div>
+  <div class="formula">Hourly salary = base salary / 22 / 8</div>
+  <p>The full H- amount combines the absence deduction and machine-based lateness/early-departure deduction.</p>
+  <div class="formula">H- amount = absence deduction + (late/early H- hours x hourly salary)</div>
+
+  <h2>5. Worked Example</h2>
+  <div class="example">
+    <p><strong>Employee base salary:</strong> 24,000 DA</p>
+    <p><strong>One confirmed absence:</strong> 0.7333 day = 5.8667 hours</p>
+    <p><strong>Additional late/early time:</strong> 1.5 hours</p>
+    <p><strong>H+ declared in payroll:</strong> 1,500 DA</p>
+    <p class="formula">Daily salary = 24,000 / 22 = 1,090.91 DA</p>
+    <p class="formula">Hourly salary = 24,000 / 22 / 8 = 136.36 DA</p>
+    <p class="formula">Absence deduction = 5.8667 x 136.36 = 800.00 DA</p>
+    <p class="formula">Late/early deduction = 1.5 x 136.36 = 204.55 DA</p>
+    <p class="formula">Total H- = 800.00 + 204.55 = 1,004.55 DA</p>
+    <p class="formula">Final balance = 24,000 + 1,500 - 1,004.55 = 24,495.45 DA</p>
+  </div>
+
+  <h2>6. H+ Overtime</h2>
+  <div class="note"><strong>Current dashboard behavior:</strong> the displayed H+ amount is read from the legal payroll journal. It is not yet calculated from machine exit time.</div>
+  <p>The agreed future machine rule for H+ is:</p>
+  <ul>
+    <li>Any overtime from 1 to 15 minutes is credited as 15 minutes.</li>
+    <li>After the first 15 minutes, each started 5 minutes adds 5 minutes.</li>
+    <li>Example: a 16:00 scheduled exit and 17:00 actual exit equals 60 minutes H+.</li>
+  </ul>
+  <p>Machine H+ should be compared with H+ declared in payroll. Only approved/payroll-declared H+ should be added to the final salary balance.</p>
+
+  <h2>7. Final Salary Balance Display</h2>
+  <div class="formula">Final balance = salary base + real H+ from payroll - calculated H-</div>
+  <p>The dashboard intentionally does not display Net a payer in this control. It focuses on the attendance effect on the salary base.</p>
+
+  <footer>AGROSATI Presence and Access Dashboard - Calculation reference</footer>
+</body>
+</html>
