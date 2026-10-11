@@ -22,6 +22,7 @@ const TABS = [
 const validPeriod = (value) => /^20\d{2}-(0[1-9]|1[0-2])$/.test(value || '');
 const monthStateKey = (period, source) => `attendance-${period}-${source}`;
 const monthLabel = (period) => validPeriod(period) ? new Intl.DateTimeFormat('fr-FR', { month: 'long', year: 'numeric' }).format(new Date(`${period}-01T12:00:00`)) : period;
+const MONTH_NAMES = ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre'];
 
 function StatusBadge({ value }) {
   const [label, tone] = STATUS[value] || [value, 'warning'];
@@ -65,6 +66,8 @@ export default function AttendanceDashboard({ onBack }) {
   const [payrollSources, setPayrollSources] = useState({});
   const [availableMonths, setAvailableMonths] = useState([]);
   const [activeMonth, setActiveMonth] = useState('');
+  const [activeYear, setActiveYear] = useState(2026);
+  const [monthStatus, setMonthStatus] = useState({});
   const payrollImportCompany = useRef('AGROSATI');
   const [loading, setLoading] = useState(''); const [errors, setErrors] = useState({});
   const [search, setSearch] = useState(''); const [status, setStatus] = useState(''); const [companyFilter, setCompanyFilter] = useState('');
@@ -93,8 +96,9 @@ export default function AttendanceDashboard({ onBack }) {
     let mounted = true;
     const restore = async () => {
       try {
-        const savedMonths = (await loadSavedState('attendance-months') || []).filter(validPeriod).sort().reverse();
-        if (savedMonths.length) { if (mounted) { setAvailableMonths(savedMonths); await loadMonth(savedMonths[0]); } return; }
+        const [savedMonthValues, savedStatus] = await Promise.all([loadSavedState('attendance-months'), loadSavedState('attendance-month-status')]);
+        const savedMonths = (savedMonthValues || []).filter(validPeriod).sort().reverse();
+        if (savedMonths.length) { if (mounted) { setAvailableMonths(savedMonths); setMonthStatus(savedStatus || {}); setActiveYear(Number(savedMonths[0].slice(0, 4))); await loadMonth(savedMonths[0]); } return; }
         const [machine, hr, ...payroll] = await Promise.all([
           loadSavedState('attendance-machine'), loadSavedState('attendance-hr'),
           ...CONTROL_COMPANIES.map((company) => loadSavedState(`attendance-payroll-${company.key.toLowerCase()}`)),
@@ -106,7 +110,11 @@ export default function AttendanceDashboard({ onBack }) {
           const keys = [[monthStateKey(legacyPeriod, 'machine'), machine], [monthStateKey(legacyPeriod, 'hr'), hr], ...Object.entries(restoredPayroll).map(([company, data]) => [monthStateKey(legacyPeriod, `payroll-${company.toLowerCase()}`), data])];
           await Promise.all(keys.filter(([, data]) => data).map(([key, data]) => saveDashboardState(key, data)));
           await saveDashboardState('attendance-months', [legacyPeriod]);
+          const legacyStatus = { [legacyPeriod]: { machine: Boolean(machine), hr: Boolean(hr), payroll: Object.keys(restoredPayroll) } };
+          await saveDashboardState('attendance-month-status', legacyStatus);
           setAvailableMonths([legacyPeriod]);
+          setMonthStatus(legacyStatus);
+          setActiveYear(Number(legacyPeriod.slice(0, 4)));
           setActiveMonth(legacyPeriod);
         }
         if (machine || hr || Object.keys(restoredPayroll).length) {
@@ -149,6 +157,7 @@ export default function AttendanceDashboard({ onBack }) {
     try {
       const parser = type === 'machine' ? parseMachineWorkbook : type === 'hr' ? parseHrWorkbook : parsePayrollWorkbook;
       const parsed = await parser(file);
+      if (activeMonth && validPeriod(parsed.meta?.period) && parsed.meta.period !== activeMonth) throw new Error(`Le fichier correspond à ${monthLabel(parsed.meta.period)}. Sélectionnez ce mois avant l’import.`);
       const period = validPeriod(parsed.meta?.period) ? parsed.meta.period : activeMonth;
       if (!validPeriod(period)) throw new Error('Le mois du fichier est introuvable. Importez d’abord le pointage machine ou RH du mois.');
       if (activeMonth && activeMonth !== period) {
@@ -156,8 +165,14 @@ export default function AttendanceDashboard({ onBack }) {
         setPayrollSources({});
       }
       const nextMonths = [...new Set([...availableMonths, period])].sort().reverse();
-      setAvailableMonths(nextMonths); setActiveMonth(period);
+      setAvailableMonths(nextMonths); setActiveMonth(period); setActiveYear(Number(period.slice(0, 4)));
       void saveDashboardState('attendance-months', nextMonths).catch(() => {});
+      const sourceKey = type === 'payroll' ? `payroll-${payrollImportCompany.current}` : type;
+      const nextMonthStatus = { ...monthStatus, [period]: { machine: false, hr: false, payroll: [], ...(monthStatus[period] || {}) } };
+      if (type === 'payroll') nextMonthStatus[period].payroll = [...new Set([...(nextMonthStatus[period].payroll || []), payrollImportCompany.current])];
+      else nextMonthStatus[period][sourceKey] = true;
+      setMonthStatus(nextMonthStatus);
+      void saveDashboardState('attendance-month-status', nextMonthStatus).catch(() => {});
       if (type === 'payroll') {
         const company = payrollImportCompany.current;
         parsed.meta.company = company;
@@ -177,6 +192,7 @@ export default function AttendanceDashboard({ onBack }) {
   const updateRule = (key, value) => setRules((current) => ({ ...current, [key]: value }));
   const updateShift = (index, value) => setRules((current) => ({ ...current, shiftStarts: current.shiftStarts.map((shift, shiftIndex) => shiftIndex === index ? value : shift) }));
   const resetRules = () => setRules({ ...DEFAULT_CONTROL_RULES, shiftStarts: [...DEFAULT_CONTROL_RULES.shiftStarts] });
+  const selectMonth = (period) => { setActiveMonth(period); loadMonth(period); };
   const visibleEmployees = useMemo(() => {
     if (!model) return []; const query = search.trim().toLocaleLowerCase('fr');
     return model.employees.filter((employee) => (!companyFilter || employee.company === companyFilter) && (!query || `${employee.employeeId} ${employee.employeeName} ${employee.role}`.toLocaleLowerCase('fr').includes(query)) && (!status || employee.status === status || employee.issues.includes(status)));
@@ -200,7 +216,7 @@ export default function AttendanceDashboard({ onBack }) {
       <header className="mino-topbar"><button className="mino-mobile-menu" onClick={() => setCollapsed((value) => !value)}><Menu /></button><div><span>Opérations / Présence & Accès</span><h1>{tabTitle}</h1></div>{tab === 'anomalies' && model ? <button className="mino-upload" onClick={() => exportControlAnomalies(model)}><Download /><span>Exporter les anomalies</span></button> : tab !== 'sources' && <button className="mino-upload" onClick={() => setTab('sources')}><FileSpreadsheet /><span>Actualiser les sources</span></button>}</header>
       {Object.keys(inputs).map((type) => <input key={type} ref={inputs[type]} hidden type="file" accept=".xlsx,.xls" onChange={(event) => { importFile(type, event.target.files?.[0]); event.target.value = ''; }} />)}
       <div className="mino-content attendance-dashboard control-workspace">
-        {tab === 'sources' && <section className="attendance-filterbar control-company-filter control-month-picker"><label><span>Mois de travail</span><select value={activeMonth} onChange={(event) => loadMonth(event.target.value)} disabled={loading === 'month'}><option value="">Sélectionner un mois</option>{availableMonths.map((period) => <option key={period} value={period}>{monthLabel(period)}</option>)}</select></label><small>{activeMonth ? `Données enregistrées séparément pour ${monthLabel(activeMonth)}.` : 'Chaque mois conserve ses propres fichiers.'}</small></section>}
+        {tab === 'sources' && <><section className="attendance-card control-year-picker"><label><span>Exercice</span><select value={activeYear} onChange={(event) => setActiveYear(Number(event.target.value))}>{[activeYear, ...availableMonths.map((period) => Number(period.slice(0, 4))), 2026].filter((year, index, years) => years.indexOf(year) === index).sort((left, right) => right - left).map((year) => <option key={year} value={year}>{year}</option>)}</select></label><small>Sélectionnez un mois avant d’importer ses fichiers.</small></section><section className="control-month-grid">{MONTH_NAMES.map((name, index) => { const period = `${activeYear}-${String(index + 1).padStart(2, '0')}`; const summary = monthStatus[period] || {}; const count = Number(Boolean(summary.machine)) + Number(Boolean(summary.hr)) + (summary.payroll || []).length; return <button key={period} type="button" className={activeMonth === period ? 'active' : ''} onClick={() => selectMonth(period)}><span>{String(index + 1).padStart(2, '0')}</span><strong>{name}</strong><b>{count}/8</b><small>{count ? 'Données enregistrées' : 'Sélectionner'}</small></button>; })}</section></>}
         {tab === 'overview' && <><section className="control-hero"><div><span><ShieldCheck /> AGROSATI · SEPTEMBRE 2026</span><h2>Rapprochement machine, RH et paie</h2><p>Contrôle de trois postes, des absences et du solde après H+ / H− sur une base de {rules.payrollDays} jours.</p></div>{model && <button className="mino-upload" type="button" onClick={() => setTab('employees')}><ListChecks /><span>Ouvrir le contrôle</span></button>}</section>{model ? <section className="attendance-kpi-grid control-kpis"><Kpi icon={Users} label="Salariés contrôlés" value={model.kpis.controlled} detail={`${model.nonPayroll.length} AGROSATI hors paie`} /><Kpi icon={AlertTriangle} label="Écarts RH" value={model.kpis.rhDifferences} detail="Machine différente du RH" alert={model.kpis.rhDifferences > 0} /><Kpi icon={CalendarDays} label="À réviser" value={model.kpis.pendingReviews} detail="Justificatif ou horaire spécial" alert={model.kpis.pendingReviews > 0} /><Kpi icon={ShieldCheck} label="Anomalies paie" value={model.kpis.payrollAnomalies} detail="Présence et retenues" alert={model.kpis.payrollAnomalies > 0} /><Kpi icon={CircleDollarSign} label="Solde après H+ / H−" value={`${money.format(model.kpis.totalPresenceBalance)} DA`} detail="Salaire de base + H+ − H−" /></section> : <section className="control-empty"><FileSpreadsheet /><h3>Importez les trois fichiers Excel</h3><p>Ouvrez l’onglet Sources de données pour charger le pointage machine, le pointage RH et le journal de paie.</p><button className="attendance-reset" onClick={() => setTab('sources')}>Ouvrir les sources</button></section>}</>}
 
         {(tab === 'employees' || tab === 'anomalies') && model && <section className="attendance-filterbar control-company-filter"><label><span>Société</span><select value={companyFilter} onChange={(event) => setCompanyFilter(event.target.value)}><option value="">Toutes les sociétés</option>{CONTROL_COMPANIES.map((company) => <option key={company.key} value={company.key}>{company.label}</option>)}</select></label></section>}
