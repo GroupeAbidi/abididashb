@@ -12,6 +12,10 @@ const toMinutes = (value) => {
 };
 
 const normalizeDay = (value) => text(value).padStart(2, '0');
+const monthFromText = (value) => {
+  const source = text(value);
+  return /janv|جانفي/i.test(source) ? '01' : /f[eé]v|فيفر/i.test(source) ? '02' : /mars|مارس/i.test(source) ? '03' : /avril|أفريل/i.test(source) ? '04' : /mai|ماي/i.test(source) ? '05' : /juin|جوان/i.test(source) ? '06' : /juillet|جويل/i.test(source) ? '07' : /ao[uû]t|اوت/i.test(source) ? '08' : /sept|سبتمبر/i.test(source) ? '09' : /oct|أكتوبر/i.test(source) ? '10' : /nov|نوفمبر/i.test(source) ? '11' : /d[eé]c|ديسمبر/i.test(source) ? '12' : '';
+};
 const SATURDAY_ONLY_EMPLOYEES = new Set(['T0121', 'T0098']);
 const FULL_SHIFT_ON_PRESENCE_EMPLOYEES = new Set(['A0239']);
 
@@ -74,24 +78,28 @@ export async function parseHrWorkbook(file) {
   for (const sheetName of workbook.SheetNames) {
     if (/rapport|feuil/i.test(sheetName)) continue;
     const rows = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { header: 1, defval: '', raw: false });
-    for (let rowIndex = 0; rowIndex < rows.length; rowIndex += 1) {
+    const dayHeaderIndex = rows.findIndex((row) => row.filter((value) => /^(?:[1-9]|[12]\d|3[01])$/.test(text(value))).length >= 20);
+    const dayColumns = dayHeaderIndex >= 0 ? rows[dayHeaderIndex].map((value, index) => ({ day: Number(text(value)), index })).filter(({ day }) => day >= 1 && day <= 31) : [];
+    const dataStart = dayHeaderIndex >= 0 ? dayHeaderIndex + 1 : 0;
+    for (let rowIndex = dataStart; rowIndex < rows.length; rowIndex += 1) {
       const row = rows[rowIndex];
-      const employeeId = normalizeMatricule(row[2]);
+      const employeeId = normalizeMatricule(row[0]) || normalizeMatricule(row[2]);
       const employeeName = text(row[1]);
-      const dayValues = row.slice(3, 34).map(text);
+      const dayValues = dayColumns.length ? dayColumns.map(({ index }) => text(row[index])) : row.slice(3, 34).map(text);
       if (!/^[A-Z]\d+$/i.test(employeeId) || !employeeName) {
-        if (!employeeId && employeeName && dayValues.some(Boolean) && /^\d+$/.test(text(row[0]))) missingMatriculeRows.push({ sheetName, row: rowIndex + 1, employeeName });
+        if (!employeeId && employeeName && dayValues.some(Boolean) && (/^\d+$/.test(text(row[0])) || text(row[0]) === '')) missingMatriculeRows.push({ sheetName, row: rowIndex + 1, employeeName });
         continue;
       }
       const days = {};
-      for (let day = 1; day <= 31; day += 1) days[String(day).padStart(2, '0')] = text(row[day + 2]);
+      if (dayColumns.length) dayColumns.forEach(({ day, index }) => { days[String(day).padStart(2, '0')] = text(row[index]); });
+      else for (let day = 1; day <= 31; day += 1) days[String(day).padStart(2, '0')] = text(row[day + 2]);
       records.push({ key: `${sheetName}-${rowIndex + 1}`, sheetName, row: rowIndex + 1, employeeId, employeeName, days });
     }
   }
   if (!records.length) throw new Error('Aucune ligne RH avec matricule reconnue.');
-  const periodText = `${file.name} ${workbook.SheetNames.join(' ')}`;
-  const year = periodText.match(/20\d{2}/)?.[0] || '';
-  const month = /sept/i.test(periodText) || /09/.test(file.name) ? '09' : '';
+  const sheetText = `${workbook.SheetNames.join(' ')} ${workbook.SheetNames.map((sheetName) => XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { header: 1, defval: '', raw: false }).slice(0, 4).flat().join(' ')).join(' ')}`;
+  const year = file.name.match(/20\d{2}/)?.[0] || sheetText.match(/20\d{2}/)?.[0] || '';
+  const month = monthFromText(file.name) || monthFromText(sheetText);
   return { meta: { fileName: file.name, period: year && month ? `${year}-${month}` : '', sheets: workbook.SheetNames }, records, missingMatriculeRows };
 }
 
