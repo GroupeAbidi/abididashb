@@ -238,6 +238,12 @@ export function buildAgrosatiControl(machineData, hrData, payrollData, customRul
     }, 0);
     const rhDifferences = days.filter((day) => day.status === 'rh-difference').length;
     const reviews = days.filter((day) => day.status === 'review').length;
+    const shiftCounts = days.reduce((counts, day) => {
+      if (!day.machineValue || !day.shiftLabel) return counts;
+      counts[day.shiftLabel] = (counts[day.shiftLabel] || 0) + 1;
+      return counts;
+    }, {});
+    const primaryShift = Object.entries(shiftCounts).sort((left, right) => right[1] - left[1])[0]?.[0] || '';
     const payrollDays = Math.max(1, Number(rules.payrollDays || 22));
     const shiftHours = Math.max(1, Number(rules.shiftHours || 8));
     const convertedAbsenceDays = unpaidAbsences * payrollDays / 30;
@@ -267,7 +273,7 @@ export function buildAgrosatiControl(machineData, hrData, payrollData, customRul
     if (absenceMismatch) issues.push('absence-payroll');
     if (baseSalaryMismatch) issues.push('base-salary-payroll');
     if (presenceMismatch) issues.push('presence-payroll');
-    return { employeeId: payroll.employeeId, employeeName: payroll.employeeName, role: payroll.role, company: company.key, companyLabel: company.label, machine, hr, payroll, salaryBaseRecord, contractualBaseSalary: salaryBaseRecord?.baseSalary ?? null, unpaidAbsences, convertedAbsenceDays, payableAbsences, singleAbsenceHours, unpaidHours, rhDifferences, reviews, expectedAbsenceDeduction, expectedBaseAfterAttendance, realOvertime, finalPresenceBalance, expectedPresence, absenceMismatch, baseSalaryMismatch, presenceMismatch, days, issues, status: issues.length ? issues[0] : 'correct' };
+    return { employeeId: payroll.employeeId, employeeName: payroll.employeeName, role: payroll.role, company: company.key, companyLabel: company.label, machine, hr, payroll, salaryBaseRecord, contractualBaseSalary: salaryBaseRecord?.baseSalary ?? null, primaryShift, unpaidAbsences, convertedAbsenceDays, payableAbsences, singleAbsenceHours, unpaidHours, rhDifferences, reviews, expectedAbsenceDeduction, expectedBaseAfterAttendance, realOvertime, finalPresenceBalance, expectedPresence, absenceMismatch, baseSalaryMismatch, presenceMismatch, days, issues, status: issues.length ? issues[0] : 'correct' };
   });
   const nonPayroll = machineEmployees.filter((employee) => !payrollById.has(employee.employeeId));
   return {
